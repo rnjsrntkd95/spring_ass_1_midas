@@ -6,7 +6,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class BackOfficeApplicationRunner implements org.springframework.boot.ApplicationRunner {
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        System.out.println("test");
-    }
+    public void run(ApplicationArguments args) throws Exception {}
 }
