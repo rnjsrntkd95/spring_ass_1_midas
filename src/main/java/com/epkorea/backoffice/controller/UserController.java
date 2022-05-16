@@ -37,7 +37,7 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
-        return "redirect:" + request.getAttribute("Referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
     @GetMapping("/user/logout")
@@ -45,6 +45,6 @@ public class UserController {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        return "redirect:" + request.getAttribute("Referer");
+        return "redirect:" + request.getHeader("referer");
     }
 }
