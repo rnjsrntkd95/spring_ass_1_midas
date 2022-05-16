@@ -19,4 +19,8 @@ public class UserService {
     public List<UserEntity> findAllUserInfo() {
         return userRepository.findAll();
     }
+
+    public UserEntity login(UserEntity user) {
+        return userRepository.findByUseridAndPassword(user.getUserid(), user.getPassword());
+    }
 }

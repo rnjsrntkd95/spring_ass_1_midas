@@ -6,21 +6,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class UserController {
+    @Autowired
     private UserService userService;
 
-    private UserController(UserService userService) {
-        this.userService = userService;
+    @GetMapping("/user/all")
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+        List<UserEntity> users = userService.findAllUserInfo();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
-        List<UserEntity> users = this.userService.findAllUserInfo();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    @GetMapping("/user/login")
+    public String login() {
+        return "login_form";
+    }
+
+    @PostMapping("/user/login")
+    public String loginProcess(@ModelAttribute UserEntity userParam, HttpServletRequest request) {
+        UserEntity user = userService.login(userParam);
+        if (user == null) {
+            return "login_form";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
+
+        return "redirect:" + request.getAttribute("Referer");
+    }
+
+    @GetMapping("/user/logout")
+    public String loginProcess(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        return "redirect:" + request.getAttribute("Referer");
     }
 }

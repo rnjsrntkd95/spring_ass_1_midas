@@ -43,4 +43,12 @@ public class UserEntity {
     public String getPhone() {
         return phone;
     }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
