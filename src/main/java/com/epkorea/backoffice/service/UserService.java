@@ -1,10 +1,9 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.entity.UserEntity;
+import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,11 +15,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<UserEntity> findAllUserInfo() {
+    public List<User> findAllUserInfo() {
         return userRepository.findAll();
     }
 
-    public UserEntity login(UserEntity user) {
+    public User login(User user) {
         return userRepository.findByUseridAndPassword(user.getUserid(), user.getPassword());
     }
 }

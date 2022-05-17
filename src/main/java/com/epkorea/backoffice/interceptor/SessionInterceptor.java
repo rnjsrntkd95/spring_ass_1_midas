@@ -1,10 +1,11 @@
 package com.epkorea.backoffice.interceptor;
 
-import com.epkorea.backoffice.entity.UserEntity;
+import com.epkorea.backoffice.entity.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +16,9 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        UserEntity user = (UserEntity)session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         if (user == null) {
-            logger.info("Not Login User");
+            logger.info("Not Login User: " + request.getRequestURL());
             response.sendRedirect("/user/login");
             return false;
         }

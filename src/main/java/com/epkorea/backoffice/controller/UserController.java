@@ -1,6 +1,6 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.entity.UserEntity;
+import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user/all")
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
-        List<UserEntity> users = userService.findAllUserInfo();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.findAllUserInfo();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public String loginProcess(@ModelAttribute UserEntity userParam, HttpServletRequest request) {
-        UserEntity user = userService.login(userParam);
+    public String loginProcess(@ModelAttribute User userParam, HttpServletRequest request) {
+        User user = userService.login(userParam);
         if (user == null) {
             return "login_form";
         }
