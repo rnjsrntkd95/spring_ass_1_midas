@@ -7,7 +7,13 @@
     <meta charset="UTF-8" />
     <title>BackOffice</title>
 
-    <th:block th:replace="fragment/config :: configFragment"></th:block>
+    <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
+    <th:block layout:fragment="css"></th:block>
+    <th:block layout:fragment="js"></th:block>
 </head>
 
 <body>

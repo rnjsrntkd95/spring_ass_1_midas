@@ -25,19 +25,19 @@ public class UserController {
 
     @GetMapping("/user/login")
     public String login() {
-        return "login_form";
+        return "login";
     }
 
     @PostMapping("/user/login")
     public String loginProcess(@ModelAttribute User userParam, HttpServletRequest request) {
         User user = userService.login(userParam);
         if (user == null) {
-            return "login_form";
+            return "login";
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
-        return "redirect:" + request.getHeader("referer");
+        return "redirect:/";
     }
 
     @GetMapping("/user/logout")
@@ -45,6 +45,6 @@ public class UserController {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        return "redirect:" + request.getHeader("referer");
+        return "redirect:" + request.getHeader("Referer");
     }
 }

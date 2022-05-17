@@ -4,15 +4,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragment/layout}">
 
-<th:block layout:fragment="css">
-<!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
-</th:block>
+    <th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    </th:block>
+    <th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    </th:block>
 
-<th:block layout:fragment="script">
-<!--    <script th:src="@{/js/page/home.js}"></script>-->
-</th:block>
-
-<div layout:fragment="content">
-    <h1>content</h1>
-</div>
+    <div layout:fragment="content">
+        <h1>content</h1>
+    </div>
 </html>
