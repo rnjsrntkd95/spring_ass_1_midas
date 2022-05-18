@@ -10,4 +10,4 @@ public class BackOfficeApplication {
         SpringApplication.run(BackOfficeApplication.class, args);
     }
 
-};
+}
