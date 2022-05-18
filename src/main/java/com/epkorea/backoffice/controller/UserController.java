@@ -1,6 +1,7 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.entity.User;
+import com.epkorea.backoffice.dto.UserDto;
+import com.epkorea.backoffice.dto.UserLoginDto;
 import com.epkorea.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user/all")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.findAllUserInfo();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> users = userService.findAllUserInfo();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -29,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public String loginProcess(@ModelAttribute User userParam, HttpServletRequest request) {
-        User user = userService.login(userParam);
+    public String loginProcess(@ModelAttribute UserLoginDto userLoginDto, HttpServletRequest request) {
+        UserDto user = userService.login(userLoginDto);
         if (user == null) {
             return "login";
         }
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/user/logout")
-    public String loginProcess(HttpServletRequest request) {
+    public String logoutProcess(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
 

@@ -16,7 +16,14 @@
     </div>
 
     <div class="header-user">
-        <a href="/user/login">로그인</a>
+        <th:block th:if="${loginUser != null}">
+            <p th:text="${loginUser.getUsername()}"></p>
+            <a href="/user/logout">로그아웃</a>
+        </th:block>
+        <th:block th:unless="${loginUser != null}">
+            <a href="/user/login">로그인</a>
+        </th:block>
+
     </div>
 
 </header>

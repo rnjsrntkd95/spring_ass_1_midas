@@ -1,5 +1,6 @@
 package com.epkorea.backoffice.repository;
 
+import com.epkorea.backoffice.dto.UserDto;
 import com.epkorea.backoffice.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

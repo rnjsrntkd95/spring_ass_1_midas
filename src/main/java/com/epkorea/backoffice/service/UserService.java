@@ -1,10 +1,13 @@
 package com.epkorea.backoffice.service;
 
+import com.epkorea.backoffice.dto.UserDto;
+import com.epkorea.backoffice.dto.UserLoginDto;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -15,11 +18,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAllUserInfo() {
-        return userRepository.findAll();
+    public List<UserDto>  findAllUserInfo() {
+        List<User> userList =  userRepository.findAll();
+        return userList.stream().map(UserDto::new).collect(Collectors.toList());
     }
 
-    public User login(User user) {
-        return userRepository.findByUseridAndPassword(user.getUserid(), user.getPassword());
+    public UserDto login(UserLoginDto userLoginDto) {
+        User user = userRepository.findByUseridAndPassword(userLoginDto.getUserid(), userLoginDto.getPassword());
+        return new UserDto(user);
     }
 }
