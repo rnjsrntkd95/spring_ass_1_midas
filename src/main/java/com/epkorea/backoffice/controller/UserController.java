@@ -14,22 +14,23 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping(value="/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/all")
+    @GetMapping("/all")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = userService.findAllUserInfo();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("login")
     public String loginProcess(@ModelAttribute UserLoginDto userLoginDto, HttpServletRequest request) {
         UserDto user = userService.login(userLoginDto);
         if (user == null) {
@@ -41,7 +42,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/user/logout")
+    @GetMapping("/logout")
     public String logoutProcess(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
