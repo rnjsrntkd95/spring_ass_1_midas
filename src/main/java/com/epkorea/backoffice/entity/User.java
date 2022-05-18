@@ -2,20 +2,27 @@ package com.epkorea.backoffice.entity;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name="user")
 @Table(name="users")
 @Getter
 public class User {
-    @Id
-    private Integer id;
-    private String userid;
-    private String password;
-    private String username;
-    private String group;
-    private String phone;
+    @Id @GeneratedValue
+    private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String userid;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column
+    private String group;
+
+    @Column
+    private String phone;
 }
