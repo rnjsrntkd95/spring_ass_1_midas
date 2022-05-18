@@ -1,7 +1,10 @@
 package com.epkorea.backoffice.dto;
 
 import com.epkorea.backoffice.entity.User;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class UserDto {
     private Integer id;
     private String userid;
@@ -18,55 +21,4 @@ public class UserDto {
         this.group = user.getGroup();
         this.phone = user.getPhone();
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-
-
 }
