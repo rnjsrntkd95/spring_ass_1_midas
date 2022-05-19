@@ -17,34 +17,35 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-    @RequestMapping(value="/user")
-    public class UserController {
-        @Autowired
-        private UserService userService;
+@RequestMapping(value = "/user")
+public class UserController {
+    @Autowired
+    private UserService userService;
 
-        @GetMapping("/all")
-        public ResponseEntity<List<UserDto>> getAllUsers() {
-            List<UserDto> users = userService.findAllUserInfo();
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }
+    @GetMapping("/all")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> users = userService.findAllUserInfo();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
-        @GetMapping("/login")
-        public String login() {
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginProcess(@ModelAttribute UserLoginDto.Request userLoginDto, HttpServletRequest request) {
+        UserLoginDto.Response user = userService.login(userLoginDto);
+        if (user == null) {
             return "login";
         }
-        @PostMapping("/login")
-        public String loginProcess(@ModelAttribute UserLoginDto.Request userLoginDto, HttpServletRequest request) {
-            UserLoginDto.Response user = userService.login(userLoginDto);
-            if (user == null) {
-                return "login";
-            }
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
 
-            return "redirect:/";
-        }
+        return "redirect:/";
+    }
 
-        @GetMapping("/logout")
+    @GetMapping("/logout")
     public String logoutProcess(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
