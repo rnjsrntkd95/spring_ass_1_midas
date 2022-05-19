@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 public class UserLoginDto {
     @Getter @Setter
     @Builder @AllArgsConstructor
@@ -20,6 +22,7 @@ public class UserLoginDto {
         private String username;
         private String group;
         private String phone;
+        private LocalDateTime createDate;
 
         public Response(User user) {
             this.id = user.getId();
@@ -27,6 +30,7 @@ public class UserLoginDto {
             this.username = user.getUsername();
             this.group = user.getGroup();
             this.phone = user.getPhone();
+            this.createDate = user.getCreateDate();
         }
 
     }

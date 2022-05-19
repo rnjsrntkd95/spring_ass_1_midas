@@ -3,6 +3,7 @@ package com.epkorea.backoffice.entity;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name="user")
 @Table(name="users")
@@ -25,4 +26,7 @@ public class User {
 
     @Column
     private String phone;
+
+    @Column
+    private LocalDateTime createDate;
 }
