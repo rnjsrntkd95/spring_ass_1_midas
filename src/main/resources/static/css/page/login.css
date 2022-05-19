@@ -1,0 +1,57 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 100px 0;
+}
+.login-form {
+    width :500px;
+    height: 500px;
+    padding: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    gap: 10px;
+
+    box-sizing: border-box;
+    border: 1px solid grey;
+    background-color: #f4f4f4;
+}
+.login-form-title {
+    font-size: 30px;
+    text-align:center;
+    margin-top: 0px;
+}
+.userid, .password {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+.signup {
+    text-decoration: none;
+}
+.login-form-submit, .signup {
+    width: 100%;
+    height: 40px;
+
+    font-size: 18px;
+    background-color: rgb(181,214,146);
+
+    border: 1px solid rgb(121, 143, 99);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+.login-form-submit:hover, .signup:hover {
+    background-color: rgb(125, 141, 97);
+
+}
