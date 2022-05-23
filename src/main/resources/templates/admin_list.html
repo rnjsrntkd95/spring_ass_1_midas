@@ -14,12 +14,7 @@
 <div layout:fragment="content">
     <div class="content-header">관리자 등록/관리</div>
     <div class="content-container">
-        <aside class="aside">
-            <div class="aside-title">관리자 관리</div>
-            <div class="aside-container">
-                <div class="aside-box">관리자 등록/관리</div>
-                <div class="aside-box">관리자 로그</div>
-            </div>
+        <aside class="aside" th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu2='관리자 로그')">
         </aside>
         <div class="admin-container">
             <div class="admin-search">검색바</div>
