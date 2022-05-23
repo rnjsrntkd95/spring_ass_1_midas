@@ -2,10 +2,18 @@ package com.epkorea.backoffice.dto;
 
 import com.epkorea.backoffice.repository.mapper.UserMapper;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 public class UserDto {
+    @Getter
+    @Setter
+    public static class Request {
+        private Integer currentPage = 0;
+        private String condition;
+        private String kwd;
+    }
 
     @Getter
     public static class Response {
@@ -20,6 +28,4 @@ public class UserDto {
             this.createDate = user.getCreateDate();
         }
     }
-
-
 }

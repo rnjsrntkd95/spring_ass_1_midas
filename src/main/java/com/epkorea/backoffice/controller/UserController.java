@@ -4,9 +4,11 @@ import com.epkorea.backoffice.dto.UserDto;
 import com.epkorea.backoffice.dto.UserLoginDto;
 import com.epkorea.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +22,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/all")
-    public ModelAndView getAllUsers(@RequestParam @Nullable String condition, @RequestParam @Nullable String kwd) {
-        List<UserDto.Response> users = userService.findAllUserInfo(condition, kwd);
+    public ModelAndView getAllUsers(@ModelAttribute UserDto.Request userDto) {
+        List<UserDto.Response> users = userService.findAllUserInfo(userDto);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("admin_list", users);

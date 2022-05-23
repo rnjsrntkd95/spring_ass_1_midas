@@ -6,6 +6,7 @@ import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
 import com.epkorea.backoffice.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,19 +15,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+    private static final int PAGE_LENGTH = 10;
 
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserDto.Response> findAllUserInfo(String condition, String kwd) {
+    public List<UserDto.Response> findAllUserInfo(UserDto.Request userDto) {
+        String condition = userDto.getCondition();
+        String kwd = userDto.getKwd();
+        Integer currentPage = userDto.getCurrentPage();
         List<UserMapper> userList = new ArrayList<>();
 
         if (condition != null && kwd != null && !condition.isBlank() && !kwd.isBlank()) {
             if (condition.equals("userid")) {
-                userList = userRepository.findAllByUseridLike(kwd);
+                userList = userRepository.findAllByUseridLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage, PAGE_LENGTH));
             }
         } else {
-            userList = userRepository.findAllBy();
+            userList = userRepository.findAllByOrderByCreateDateDesc(PageRequest.of(currentPage, PAGE_LENGTH));
         }
         return userList.stream().map(UserDto.Response::new).collect(Collectors.toList());
     }
