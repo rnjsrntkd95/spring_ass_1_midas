@@ -24,6 +24,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.hibernate:hibernate-core:5.6.5.Final'
+
 
     implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

@@ -10,4 +10,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUseridAndPassword(String userid, String password);
     List<UserMapper> findAllBy();
+    List<UserMapper> findAllByUseridLike(String userid);
+
 }
