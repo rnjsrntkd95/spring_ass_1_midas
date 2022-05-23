@@ -1,0 +1,99 @@
+.content-header {
+    width: 100%;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+    font-weight: bold;
+    border: 1px solid gray;
+}
+.content-container {
+    display: flex;
+}
+.aside {
+    width: 300px;
+    padding: 0 30px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.aside > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+}
+.aside-container {
+    border-top: none;
+}
+.aside-title {
+    width: 100%;
+    height: 60px;
+    background-color: grey;
+    font-size: 18px;
+}
+.aside-container {
+    width: 100%;
+}
+.aside-box {
+    width: 100%;
+    height: 60px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.aside-box:last-child {
+    border-bottom: 0px;
+}
+.admin-container {
+    flex-grow: 1;
+    padding: 0 60px;
+}
+.admin-list-guide, .admin-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    height: 40px;
+}
+.admin-row > div, .admin-list-guide > div{
+    display: flex;
+    justify-content: center;
+}
+.admin-row {
+    border-bottom: 1px solid grey;
+}
+.admin-row:last-child {
+    border-bottom: 2px solid black;
+
+}
+.admin-list-guide {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    background-color: #f4f4f4;
+}
+.admin-row-number {
+    flex: 1;
+}
+.admin-row-userid {
+    flex: 3;
+}
+.admin-row-name {
+    flex: 3;
+}
+.admin-row-group {
+    flex: 3;
+}
+.admin-row-date {
+    flex: 3;
+}

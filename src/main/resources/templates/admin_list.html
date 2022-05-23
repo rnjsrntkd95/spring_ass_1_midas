@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/layout}">
+
+<th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/page/admin_list.css}" >
+</th:block>
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content-header">관리자 등록/관리</div>
+    <div class="content-container">
+        <aside class="aside">
+            <div class="aside-title">관리자 관리</div>
+            <div class="aside-container">
+                <div class="aside-box">관리자 등록/관리</div>
+                <div class="aside-box">관리자 로그</div>
+            </div>
+        </aside>
+        <div class="admin-container">
+            <div class="admin-search">검색바</div>
+            <div class="admin-list-box">
+                <div class="admin-list-guide">
+                    <div class="admin-row-number">번호</div>
+                    <div class="admin-row-userid">아이디</div>
+                    <div class="admin-row-name">이름</div>
+                    <div class="admin-row-group">소속</div>
+                    <div class="admin-row-date">등록일</div>
+                </div>
+                <div class="admin-row" th:each="admin : ${admin_list}">
+                    <div class="admin-row-number">1</div>
+                    <div class="admin-row-userid" th:text="${admin.getUserid()}"></div>
+                    <div class="admin-row-name" th:text="${admin.getUsername()}"></div>
+                    <div class="admin-row-group" th:text="${admin.getGroup()}"></div>
+                    <div class="admin-row-date" th:text="${#temporals.format(admin.getCreateDate(), 'yyyy.MM.dd')}"></div>
+                </div>
+            </div>
+            <div class="admin-page-bar">페이지바</div>
+        </div>
+    </div>
+</div>
+</html>
