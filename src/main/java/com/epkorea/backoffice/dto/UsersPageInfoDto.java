@@ -27,7 +27,7 @@ public class UsersPageInfoDto {
     @Getter
     @Setter
     public static class Request {
-        private Integer currentPage = 0;
+        private Integer currentPage = 1;
         private String condition;
         private String kwd;
     }

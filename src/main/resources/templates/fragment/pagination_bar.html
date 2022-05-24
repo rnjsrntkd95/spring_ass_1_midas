@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="paginationFragment" class="pagination">
-
-</div>
+    <div th:fragment="paginationFragment" class="pagination">
+        <button class="page-btn page-first-btn" th:if="${currentPage} > 0" onclick="javascript:movePage()">&lt;&lt;</button>
+        <button class="page-btn page-prev-btn" th:if="${currentPage} > 0" th:onclick="'javascript:movePage('+${currentPage - 1} + ')'">&lt;</button>
+        <button th:onclick="'javascript:movePage('+${currentPage - 2} + ')'" class="page-btn" th:if="${currentPage} - 2 >= 0" th:text="${currentPage - 1}"></button>
+        <button th:onclick="'javascript:movePage('+${currentPage - 1} + ')'" class="page-btn" th:if="${currentPage} - 1 >= 0" th:text="${currentPage}"></button>
+        <button class="page-btn page-current" th:text="${currentPage} + 1">0</button>
+        <button th:onclick="'javascript:movePage('+${currentPage + 1} + ')'" class="page-btn" th:if="${currentPage} + 1 < ${totalPages}" th:text="${currentPage} + 2"></button>
+        <button th:onclick="'javascript:movePage('+${currentPage + 2} + ')'" class="page-btn" th:if="${currentPage} + 2 < ${totalPages}" th:text="${currentPage} + 3"></button>
+        <button th:onclick="'javascript:movePage(' + ${currentPage + 1} + ')'" class="page-btn page-next-btn" th:if="${currentPage + 1 < totalPages}">&gt;</button>
+        <button th:onclick="'javascript:movePage(' + ${totalPages - 1} + ')'" class="page-btn page-fin-btn" th:if="${currentPage + 1 < totalPages}">&gt;&gt;</button>
+    </div>
 </html>

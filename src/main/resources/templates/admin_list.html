@@ -5,10 +5,12 @@
       layout:decorate="~{fragment/layout}">
 
 <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/page/admin_list.css}" >
+    <link rel="stylesheet" th:href="@{/css/page/admin_list.css}" >
+    <link rel="stylesheet" th:href="@{/css/pagination_bar.css}" >
 </th:block>
 <th:block layout:fragment="js">
-        <script th:src="@{/js/page/admin_list.js}"></script>
+    <script th:src="@{/js/page/admin_list.js}"></script>
+    <script th:src="@{/js/pagination_bar.js}"></script>
 </th:block>
 
 <div layout:fragment="content">
@@ -39,7 +41,7 @@
                     <div class="admin-row-date" th:text="${#temporals.format(admin.getCreateDate(), 'yyyy.MM.dd')}"></div>
                 </div>
             </div>
-            <div class="admin-page-bar">페이지바</div>
+            <div class="admin-page-bar" th:replace="fragment/pagination_bar :: paginationFragment(totalPages=${total_pages}, currentPage=${current_page})"></div>
         </div>
     </div>
 </div>
