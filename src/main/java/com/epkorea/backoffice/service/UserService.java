@@ -1,17 +1,14 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.dto.UserDto;
 import com.epkorea.backoffice.dto.UserLoginDto;
+import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
 import com.epkorea.backoffice.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -20,20 +17,26 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserDto.Response> findAllUserInfo(UserDto.Request userDto) {
+    public UsersPageInfoDto.Response findAllUserInfo(UsersPageInfoDto.Request userDto) {
         String condition = userDto.getCondition();
         String kwd = userDto.getKwd();
         Integer currentPage = userDto.getCurrentPage();
-        List<UserMapper> userList = new ArrayList<>();
-
+        Page<UserMapper> page = null;
         if (condition != null && kwd != null && !condition.isBlank() && !kwd.isBlank()) {
             if (condition.equals("userid")) {
-                userList = userRepository.findAllByUseridLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage, PAGE_LENGTH));
+                page = userRepository.findAllByUseridLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage, PAGE_LENGTH));
             }
         } else {
-            userList = userRepository.findAllByOrderByCreateDateDesc(PageRequest.of(currentPage, PAGE_LENGTH));
+            page = userRepository.findAllByOrderByCreateDateDesc(PageRequest.of(currentPage, PAGE_LENGTH));
         }
-        return userList.stream().map(UserDto.Response::new).collect(Collectors.toList());
+
+        UsersPageInfoDto.Response userPageInfoDto = UsersPageInfoDto.Response.builder()
+                .userList(page.getContent())
+                .totalPages(page.getTotalPages())
+                .currentPage(userDto.getCurrentPage())
+                .build();
+
+        return userPageInfoDto;
     }
 
     public UserLoginDto.Response login(UserLoginDto.Request userLoginDto) {

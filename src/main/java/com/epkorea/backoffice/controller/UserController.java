@@ -1,7 +1,7 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.UserDto;
 import com.epkorea.backoffice.dto.UserLoginDto;
+import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -22,12 +21,15 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/all")
-    public ModelAndView getAllUsers(@ModelAttribute UserDto.Request userDto) {
-        List<UserDto.Response> users = userService.findAllUserInfo(userDto);
+    public ModelAndView getAllUsers(@ModelAttribute UsersPageInfoDto.Request userDto) {
+        UsersPageInfoDto.Response usersPageInfoDto = userService.findAllUserInfo(userDto);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("admin_list", users);
         modelAndView.setViewName("admin_list");
+        modelAndView.addObject("admin_list", usersPageInfoDto.getUserList());
+        modelAndView.addObject("total_pages", usersPageInfoDto.getTotalPages());
+        modelAndView.addObject("current_page", usersPageInfoDto.getCurrentPage());
+
         return modelAndView;
     }
 
