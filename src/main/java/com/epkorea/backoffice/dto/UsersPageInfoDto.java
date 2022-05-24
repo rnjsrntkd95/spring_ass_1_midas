@@ -37,5 +37,6 @@ public class UsersPageInfoDto {
         private List<UserMapper> userList;
         private int totalPages;
         private int currentPage;
+        private Long totalElements;
     }
 }

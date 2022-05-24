@@ -29,6 +29,7 @@ public class UserController {
         modelAndView.addObject("admin_list", usersPageInfoDto.getUserList());
         modelAndView.addObject("total_pages", usersPageInfoDto.getTotalPages());
         modelAndView.addObject("current_page", usersPageInfoDto.getCurrentPage());
+        modelAndView.addObject("total_elements", usersPageInfoDto.getTotalElements());
 
         return modelAndView;
     }

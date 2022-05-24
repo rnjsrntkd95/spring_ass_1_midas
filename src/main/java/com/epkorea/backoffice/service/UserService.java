@@ -35,6 +35,7 @@ public class UserService {
                 .userList(page.getContent())
                 .totalPages(page.getTotalPages())
                 .currentPage(userDto.getCurrentPage() - PAGE_WEIGHT)
+                .totalElements(page.getTotalElements())
                 .build();
 
         return userPageInfoDto;
