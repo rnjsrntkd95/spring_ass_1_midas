@@ -24,8 +24,16 @@ public class UserService {
         Integer currentPage = userDto.getCurrentPage();
         Page<UserMapper> page = null;
         if (condition != null && kwd != null && !condition.isBlank() && !kwd.isBlank()) {
-            if (condition.equals("userid")) {
-                page = userRepository.findAllByUseridLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+            switch (condition) {
+                case "all":
+                    page = userRepository.findAllByUsernameContainingOrGroupContainingOrderByCreateDateDesc(kwd, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+                    break;
+                case "username":
+                    page = userRepository.findAllByUsernameLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+                    break;
+                case "group":
+                    page = userRepository.findAllByGroupLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+                    break;
             }
         } else {
             page = userRepository.findAllByOrderByCreateDateDesc(PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
