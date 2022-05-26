@@ -4,5 +4,5 @@ function movePage(page = 0) {
     if (urlParams.has("currentPage")) urlParams.set("currentPage", page.toString());
     else urlParams.append("currentPage", page.toString());
 
-    location.href = `/user/all?${urlParams.toString()}`;
+    location.href = location.pathname + '?' + urlParams.toString();
 }

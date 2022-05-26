@@ -41,10 +41,10 @@ public class UserService {
                     page = userRepository.findAllByUsernameContainingOrTeamContainingOrderByCreateDateDesc(kwd, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
                     break;
                 case "username":
-                    page = userRepository.findAllByUsernameLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+                    page = userRepository.findAllByUsernameContainingOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
                     break;
                 case "team":
-                    page = userRepository.findAllByTeamLikeOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+                    page = userRepository.findAllByTeamContainingOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
                     break;
             }
         } else {

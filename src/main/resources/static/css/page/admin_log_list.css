@@ -1,0 +1,85 @@
+
+.admin-log-container {
+    flex-grow: 1;
+    padding: 0 60px;
+}
+.admin-log-list-guide, .admin-log-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    height: 40px;
+}
+.admin-log-row > div, .admin-log-list-guide > div{
+    display: flex;
+    justify-content: center;
+}
+.admin-log-row {
+    border-bottom: 1px solid grey;
+}
+.admin-log-row:last-child {
+    border-bottom: 2px solid black;
+
+}
+.admin-log-list-guide {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    background-color: #f4f4f4;
+}
+.admin-log-row-number {
+    flex: 2;
+}
+.admin-log-row-date {
+    flex: 4;
+}
+.admin-log-row-userid {
+    flex: 2;
+}
+.admin-log-row-ip {
+    flex: 3;
+}
+.admin-log-row-session {
+    flex: 5;
+}
+.admin-log-row-login {
+    flex: 2;
+}
+
+.admin-log-search {
+    width: 100%;
+    height: 35px;
+    margin: 20px 0;
+
+    display: flex;
+    justify-content: flex-end;
+}
+.admin-log-search-menu {
+    width: 100px;
+}
+.admin-log-search-input {
+    width: 200px;
+    margin: 0 10px;
+}
+.admin-log-search-submit {
+    width: 75px;
+}
+.admin-log-signup {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.admin-log-signup-btn {
+    width: 75px;
+    height: 35px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    font-size: 13px;
+    color: black;
+    background-color: #EFEFEF;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 6px;
+}

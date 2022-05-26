@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/layout}">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/aside.css}">
+    <link rel="stylesheet" th:href="@{/css/page/admin_log_list.css}">
+    <link rel="stylesheet" th:href="@{/css/pagination_bar.css}">
+</th:block>
+<th:block layout:fragment="js">
+    <script th:src="@{/js/page/admin_log_list.js}"></script>
+    <script th:src="@{/js/pagination_bar.js}"></script>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content-header">관리자 로그</div>
+    <div class="content-container">
+        <aside class="aside"
+               th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu1_url='/user/all', menu2='관리자 로그', menu2_url='/user/logs')"></aside>
+        <div class="admin-log-container">
+            <div class="admin-log-search">
+                <select name="admin-log-search-menu" class="admin-log-search-menu">
+                    <option value="userid">아이디</option>
+                </select>
+                <input type="text" class="admin-log-search-input">
+                <button class="admin-log-search-submit">검색</button>
+            </div>
+            <div class="admin-log-list-box">
+                <div class="admin-log-list-guide">
+                    <div class="admin-log-row-number">번호</div>
+                    <div class="admin-log-row-date">로그인 일자</div>
+                    <div class="admin-log-row-userid">계정</div>
+                    <div class="admin-log-row-ip">IP</div>
+                    <div class="admin-log-row-session">세션ID</div>
+                    <div class="admin-log-row-login">로그인 성공</div>
+                </div>
+                <div class="admin-log-row" th:each="adminLog, i : ${admin_logs}">
+                    <div class="admin-log-row-number" th:text="${total_elements - 10 * current_page - i.count + 1}"></div>
+                    <div class="admin-log-row-date" th:text="${#temporals.format(adminLog.getLoginDate(), 'yyyy.MM.dd hh:mm:ss')}"></div>
+                    <div class="admin-log-row-userid" th:text="${adminLog.getUserid()}"></div>
+                    <div class="admin-log-row-ip" th:text="${adminLog.getIp()}"></div>
+                    <div class="admin-log-row-session"
+                         th:text="${adminLog.getSessionId()}"></div>
+                    <div class="admin-log-row-login" th:text="${adminLog.isLogin() ? 'Y' : 'N'}"></div>
+
+                </div>
+            </div>
+            <div class="admin-log-signup">
+                <div class="admin-log-page-bar"
+                     th:replace="fragment/pagination_bar :: paginationFragment(totalPages=${total_pages}, currentPage=${current_page})"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

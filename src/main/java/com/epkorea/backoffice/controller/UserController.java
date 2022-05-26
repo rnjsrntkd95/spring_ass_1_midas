@@ -1,8 +1,7 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.UserJoinDto;
-import com.epkorea.backoffice.dto.UserLoginDto;
-import com.epkorea.backoffice.dto.UsersPageInfoDto;
+import com.epkorea.backoffice.dto.*;
+import com.epkorea.backoffice.service.UserLogService;
 import com.epkorea.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +19,8 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserLogService userLogService;
 
     @GetMapping("/all")
     public ModelAndView getAllUsers(@ModelAttribute UsersPageInfoDto.Request userDto) {
@@ -74,7 +75,16 @@ public class UserController {
     }
 
     @GetMapping("/logs")
-    public void getConnectionLogs(HttpServletRequest request) {
+    public ModelAndView getConnectionLogs(@ModelAttribute UserLogSearchDto.Request userLogSearchDto) {
+        UserLogPageDto userLogPageDto = userLogService.findUserLogs(userLogSearchDto);
 
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin_log_list");
+        modelAndView.addObject("admin_logs", userLogPageDto.getUserLogs());
+        modelAndView.addObject("total_pages", userLogPageDto.getTotalPages());
+        modelAndView.addObject("current_page", userLogPageDto.getCurrentPage());
+        modelAndView.addObject("total_elements", userLogPageDto.getTotalElements());
+
+        return modelAndView;
     }
 }

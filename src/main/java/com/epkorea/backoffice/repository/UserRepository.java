@@ -12,6 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUseridAndPassword(String userid, String password);
     Page<UserMapper> findAllByOrderByCreateDateDesc(Pageable pageable);
     Page<UserMapper> findAllByUsernameContainingOrTeamContainingOrderByCreateDateDesc(String username, String team, Pageable pageable);
-    Page<UserMapper> findAllByUsernameLikeOrderByCreateDateDesc(String username, Pageable pageable);
-    Page<UserMapper> findAllByTeamLikeOrderByCreateDateDesc(String team, Pageable pageable);
+    Page<UserMapper> findAllByUsernameContainingOrderByCreateDateDesc(String username, Pageable pageable);
+    Page<UserMapper> findAllByTeamContainingOrderByCreateDateDesc(String team, Pageable pageable);
 }

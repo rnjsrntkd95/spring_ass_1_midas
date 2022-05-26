@@ -17,6 +17,7 @@ body {
     font-size: 25px;
     font-weight: bold;
     border: 1px solid gray;
+    box-sizing: border-box;
 }
 .content-container {
     display: flex;

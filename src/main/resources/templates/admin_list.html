@@ -18,7 +18,7 @@
     <div class="content-header">관리자 등록/관리</div>
     <div class="content-container">
         <aside class="aside"
-               th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu2='관리자 로그')"></aside>
+               th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu1_url='/user/all', menu2='관리자 로그', menu2_url='/user/logs')"></aside>
         <div class="admin-container">
             <div class="admin-search">
                 <select name="admin-search-menu" class="admin-search-menu">
