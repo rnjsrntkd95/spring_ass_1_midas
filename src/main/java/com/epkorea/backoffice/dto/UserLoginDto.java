@@ -17,15 +17,15 @@ public class UserLoginDto {
         private Long id;
         private String userid;
         private String username;
-        private String group;
+        private String team;
         private String phone;
         private LocalDateTime createDate;
 
         public Response(User user) {
-            this.id = user.getId();
+            this.id = user.getUid();
             this.userid = user.getUserid();
             this.username = user.getUsername();
-            this.group = user.getGroup();
+            this.team = user.getTeam();
             this.phone = user.getPhone();
             this.createDate = user.getCreateDate();
         }

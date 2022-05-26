@@ -1,5 +1,6 @@
 package com.epkorea.backoffice.controller;
 
+import com.epkorea.backoffice.dto.UserJoinDto;
 import com.epkorea.backoffice.dto.UserLoginDto;
 import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.service.UserService;
@@ -57,5 +58,16 @@ public class UserController {
         session.invalidate();
 
         return "redirect:" + request.getHeader("Referer");
+    }
+
+    @GetMapping("/signup")
+    public String signUp() {
+        return "admin_signup";
+    }
+
+    @PostMapping("/signup")
+    public String signUpProcess(@ModelAttribute UserJoinDto.Request userJoinDto) {
+        Long user_id =  userService.joinUser(userJoinDto);
+        return "redirect:/user/all";
     }
 }

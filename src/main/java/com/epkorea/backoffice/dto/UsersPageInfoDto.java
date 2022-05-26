@@ -14,13 +14,13 @@ public class UsersPageInfoDto {
     public static class UserDto {
         private String userid;
         private String username;
-        private String group;
+        private String team;
         private LocalDateTime createDate;
 
         public UserDto(UserMapper user) {
             this.userid = user.getUserid();
             this.username = user.getUsername();
-            this.group = user.getGroup();
+            this.team = user.getTeam();
             this.createDate = user.getCreateDate();
         }
     }

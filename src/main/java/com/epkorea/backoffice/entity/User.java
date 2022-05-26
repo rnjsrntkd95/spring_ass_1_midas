@@ -1,16 +1,24 @@
 package com.epkorea.backoffice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name="user")
+@Entity
 @Table(name="users")
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@DynamicInsert
 public class User {
-    @Id @GeneratedValue
-    private Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long uid;
 
     @Column(nullable = false, unique = true)
     private String userid;
@@ -21,12 +29,14 @@ public class User {
     @Column(nullable = false)
     private String username;
 
-    @Column
-    private String group;
+    private String team;
 
-    @Column
     private String phone;
 
-    @Column
+    @Column(name = "create_date")
     private LocalDateTime createDate;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "aid")
+    private Authority authority;
 }

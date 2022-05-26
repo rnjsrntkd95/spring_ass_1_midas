@@ -1,18 +1,4 @@
-.content-header {
-    width: 100%;
-    height: 60px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 25px;
-    font-weight: bold;
-    border: 1px solid gray;
-}
-.content-container {
-    display: flex;
-}
 .admin-container {
     flex-grow: 1;
     padding: 0 60px;
@@ -50,7 +36,7 @@
 .admin-row-name {
     flex: 3;
 }
-.admin-row-group {
+.admin-row-team {
     flex: 3;
 }
 .admin-row-date {
@@ -73,4 +59,23 @@
 }
 .admin-search-submit {
     width: 75px;
+}
+.admin-signup {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.admin-signup-btn {
+    width: 75px;
+    height: 35px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    font-size: 13px;
+    color: black;
+    background-color: #EFEFEF;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 6px;
 }

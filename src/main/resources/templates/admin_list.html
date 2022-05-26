@@ -5,8 +5,9 @@
       layout:decorate="~{fragment/layout}">
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/page/admin_list.css}" >
-    <link rel="stylesheet" th:href="@{/css/pagination_bar.css}" >
+    <link rel="stylesheet" th:href="@{/css/aside.css}">
+    <link rel="stylesheet" th:href="@{/css/page/admin_list.css}">
+    <link rel="stylesheet" th:href="@{/css/pagination_bar.css}">
 </th:block>
 <th:block layout:fragment="js">
     <script th:src="@{/js/page/admin_list.js}"></script>
@@ -16,13 +17,14 @@
 <div layout:fragment="content">
     <div class="content-header">관리자 등록/관리</div>
     <div class="content-container">
-        <aside class="aside" th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu2='관리자 로그')"></aside>
+        <aside class="aside"
+               th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu2='관리자 로그')"></aside>
         <div class="admin-container">
             <div class="admin-search">
                 <select name="admin-search-menu" class="admin-search-menu">
                     <option value="all">전체</option>
                     <option value="username">이름</option>
-                    <option value="group">소속</option>
+                    <option value="team">소속</option>
                 </select>
                 <input type="text" class="admin-search-input">
                 <button class="admin-search-submit">검색</button>
@@ -32,18 +34,23 @@
                     <div class="admin-row-number">번호</div>
                     <div class="admin-row-userid">아이디</div>
                     <div class="admin-row-name">이름</div>
-                    <div class="admin-row-group">소속</div>
+                    <div class="admin-row-team">소속</div>
                     <div class="admin-row-date">등록일</div>
                 </div>
                 <div class="admin-row" th:each="admin, i : ${admin_list}">
                     <div class="admin-row-number" th:text="${total_elements - 10 * current_page - i.count + 1}"></div>
                     <div class="admin-row-userid" th:text="${admin.getUserid()}"></div>
                     <div class="admin-row-name" th:text="${admin.getUsername()}"></div>
-                    <div class="admin-row-group" th:text="${admin.getGroup()}"></div>
-                    <div class="admin-row-date" th:text="${#temporals.format(admin.getCreateDate(), 'yyyy.MM.dd')}"></div>
+                    <div class="admin-row-team" th:text="${admin.getTeam()}"></div>
+                    <div class="admin-row-date"
+                         th:text="${#temporals.format(admin.getCreateDate(), 'yyyy.MM.dd')}"></div>
                 </div>
             </div>
-            <div class="admin-page-bar" th:replace="fragment/pagination_bar :: paginationFragment(totalPages=${total_pages}, currentPage=${current_page})"></div>
+            <div class="admin-signup">
+                <div class="admin-page-bar"
+                     th:replace="fragment/pagination_bar :: paginationFragment(totalPages=${total_pages}, currentPage=${current_page})"></div>
+                <a href="/user/signup" class="admin-signup-btn">신규등록</a>
+            </div>
         </div>
     </div>
 </div>

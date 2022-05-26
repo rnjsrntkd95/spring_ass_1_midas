@@ -6,6 +6,6 @@ import java.time.LocalDateTime;
 public interface UserMapper {
     String getUserid();
     String getUsername();
-    String getGroup();
+    String getTeam();
     LocalDateTime getCreateDate();
 }
