@@ -41,12 +41,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginProcess(@ModelAttribute UserLoginDto.Request userLoginDto, HttpServletRequest request) {
+    public String loginProcess(@ModelAttribute UserLoginDto.Request userLoginDto, HttpServletRequest request, HttpSession session) {
+        userLoginDto.setSessionId(session.getId());
+        userLoginDto.setIp(request.getRemoteAddr());
+
         UserLoginDto.Response user = userService.login(userLoginDto);
         if (user == null) {
             return "login";
         }
-        HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
         return "redirect:/";
@@ -69,5 +71,10 @@ public class UserController {
     public String signUpProcess(@ModelAttribute UserJoinDto.Request userJoinDto) {
         Long user_id =  userService.joinUser(userJoinDto);
         return "redirect:/user/all";
+    }
+
+    @GetMapping("/logs")
+    public void getConnectionLogs(HttpServletRequest request) {
+
     }
 }

@@ -1,10 +1,13 @@
 package com.epkorea.backoffice.service;
 
 import com.epkorea.backoffice.dto.UserJoinDto;
+import com.epkorea.backoffice.dto.UserLoggingDto;
 import com.epkorea.backoffice.dto.UserLoginDto;
 import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.entity.Authority;
 import com.epkorea.backoffice.entity.User;
+import com.epkorea.backoffice.entity.UserLog;
+import com.epkorea.backoffice.repository.UserLoggingRepository;
 import com.epkorea.backoffice.repository.UserRepository;
 import com.epkorea.backoffice.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private AuthorityService authorityService;
+    @Autowired
+    private UserLoggingRepository userLoggingRepository;
 
     public UsersPageInfoDto.Response findAllUserInfo(UsersPageInfoDto.Request userDto) {
         String condition = userDto.getCondition();
@@ -53,9 +58,20 @@ public class UserService {
                 .totalElements(page.getTotalElements())
                 .build();
     }
-
+    @Transactional
     public UserLoginDto.Response login(UserLoginDto.Request userLoginDto) {
+        UserLoggingDto.Request.RequestBuilder logBuilder = UserLoggingDto.Request.builder()
+                .userid(userLoginDto.getUserid())
+                .ip(userLoginDto.getIp())
+                .sessionId(userLoginDto.getSessionId());
+
         User user = userRepository.findByUseridAndPassword(userLoginDto.getUserid(), userLoginDto.getPassword());
+        if (user == null) {
+            loggingUserConnection(logBuilder.isLogin(false).build());
+            return null;
+        }
+        loggingUserConnection(logBuilder.isLogin(true).build());
+
         return new UserLoginDto.Response(user);
     }
     @Transactional
@@ -80,5 +96,14 @@ public class UserService {
         if (user != null) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+    }
+    public void loggingUserConnection(UserLoggingDto.Request userLoggingDto) {
+        UserLog userLog = UserLog.builder()
+                .userid(userLoggingDto.getUserid())
+                .ip(userLoggingDto.getIp())
+                .sessionId(userLoggingDto.getSessionId())
+                .isLogin(userLoggingDto.isLogin())
+                .build();
+        userLoggingRepository.save(userLog);
     }
 }

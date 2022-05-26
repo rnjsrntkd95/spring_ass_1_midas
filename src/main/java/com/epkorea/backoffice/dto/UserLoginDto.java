@@ -11,10 +11,13 @@ public class UserLoginDto {
     public static class Request {
         private String userid;
         private String password;
+        private String sessionId;
+        private String ip;
     }
     @Getter
+    @Setter
     public static class Response {
-        private Long id;
+        private Long uid;
         private String userid;
         private String username;
         private String team;
@@ -22,7 +25,7 @@ public class UserLoginDto {
         private LocalDateTime createDate;
 
         public Response(User user) {
-            this.id = user.getUid();
+            this.uid = user.getUid();
             this.userid = user.getUserid();
             this.username = user.getUsername();
             this.team = user.getTeam();
