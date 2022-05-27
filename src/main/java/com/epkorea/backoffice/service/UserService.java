@@ -1,9 +1,6 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.dto.UserJoinDto;
-import com.epkorea.backoffice.dto.UserLoggingDto;
-import com.epkorea.backoffice.dto.UserLoginDto;
-import com.epkorea.backoffice.dto.UsersPageInfoDto;
+import com.epkorea.backoffice.dto.*;
 import com.epkorea.backoffice.entity.Authority;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.entity.UserLog;
@@ -77,7 +74,8 @@ public class UserService {
     @Transactional
     public Long joinUser(UserJoinDto.Request userJoinDto) {
         validateDuplicateUser(userJoinDto.getUserid());
-        Authority authority = authorityService.grantAuthority(userJoinDto.getAuthority());
+        AuthorityDto authorityDto = userJoinDto.getAuthority();
+        Authority authority = authorityService.grantAuthority(authorityDto);
 
         User user = User.builder()
                 .userid(userJoinDto.getUserid())

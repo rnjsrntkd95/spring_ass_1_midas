@@ -19,17 +19,17 @@ public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long aid;
-    private boolean admin = false;
-    private boolean upsProduct = false;
-    private boolean coolingProduct = false;
-    private boolean lightingProduct = false;
-    private boolean railroadProduct = false;
-    private boolean upsExample = false;
-    private boolean coolingExample = false;
-    private boolean lightingExample = false;
-    private boolean railroadExample = false;
-    private boolean social = false;
-    private boolean recruit = false;
+    private boolean admin;
+    private boolean upsProduct;
+    private boolean coolingProduct;
+    private boolean lightingProduct;
+    private boolean railroadProduct;
+    private boolean upsExample;
+    private boolean coolingExample;
+    private boolean lightingExample;
+    private boolean railroadExample;
+    private boolean social;
+    private boolean recruit;
 
     @OneToOne(mappedBy = "authority", fetch = FetchType.LAZY)
     private User user;

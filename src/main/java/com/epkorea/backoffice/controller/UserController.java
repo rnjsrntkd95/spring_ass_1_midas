@@ -52,7 +52,7 @@ public class UserController {
         }
         session.setAttribute("user", user);
 
-        return "redirect:/";
+        return "redirect:/user/all";
     }
 
     @GetMapping("/logout")
