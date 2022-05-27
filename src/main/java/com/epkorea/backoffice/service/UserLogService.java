@@ -23,10 +23,10 @@ public class UserLogService {
         Page<UserLogSearchDto.Response> userLogPage = null;
         if (kwd == null || kwd.isBlank()) {
             userLogPage =
-                    userLoggingRepository.findAllByOrderByLoginDateDesc(PageRequest.of(1 - PAGE_WEIGHT, PAGE_LENGTH));
+                    userLoggingRepository.findAllByOrderByLoginDateDesc(PageRequest.of(userLogSearchDto.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
         } else {
             userLogPage =
-                    userLoggingRepository.findAllByUseridContainingOrderByLoginDateDesc(kwd, PageRequest.of(1 - PAGE_WEIGHT, PAGE_LENGTH));
+                    userLoggingRepository.findAllByUseridContainingOrderByLoginDateDesc(kwd, PageRequest.of(userLogSearchDto.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
         }
         return UserLogPageDto.setUserLogPageDto(userLogSearchDto, userLogPage);
     }
