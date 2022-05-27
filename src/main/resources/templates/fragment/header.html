@@ -18,6 +18,8 @@
     <div class="header-user">
         <th:block th:if="${loginUser != null}">
             <p th:text="${loginUser.getUsername()}"></p>
+            <p th:text="${loginUser.getAuthorities()}"></p>
+
             <a href="/user/logout">로그아웃</a>
         </th:block>
         <th:block th:unless="${loginUser != null}">

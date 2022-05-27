@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class UserLoginDto {
     @Getter @Setter
@@ -23,6 +24,7 @@ public class UserLoginDto {
         private String team;
         private String phone;
         private LocalDateTime createDate;
+        private Set<String> authorities;
 
         public Response(User user) {
             this.uid = user.getUid();
@@ -31,6 +33,7 @@ public class UserLoginDto {
             this.team = user.getTeam();
             this.phone = user.getPhone();
             this.createDate = user.getCreateDate();
+            this.authorities = user.getAuthority().getAuthoritiesSet();
         }
     }
 }
