@@ -103,8 +103,9 @@ public class UserService implements UserDetailsService {
         return user.getUid();
     }
     public void validateDuplicateUser(String userid) {
-        userRepository.findByUserid(userid)
-                .orElseThrow(() -> {throw new IllegalStateException("이미 존재하는 회원입니다.");});
+        if (userRepository.findByUserid(userid).isPresent()) {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
     }
     public void loggingUserConnection(UserLoggingDto.Request userLoggingDto) {
         UserLog userLog = UserLog.builder()

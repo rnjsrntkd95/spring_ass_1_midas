@@ -47,6 +47,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "aid")
     private Authority authority;
 
+
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
     }
