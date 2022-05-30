@@ -13,13 +13,14 @@
     <link rel="stylesheet" th:href="@{/css/footer.css}">
 
     <th:block layout:fragment="css"></th:block>
-    <th:block layout:fragment="js"></th:block>
 </head>
 
 <body>
     <th:block th:replace="fragment/header :: headerFragment"></th:block>
     <th:block layout:fragment="content"></th:block>
     <th:block th:replace="fragment/footer :: footerFragment"> </th:block>
+
+    <th:block layout:fragment="js"></th:block>
 </body>
 
 </html>

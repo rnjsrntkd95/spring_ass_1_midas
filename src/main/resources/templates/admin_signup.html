@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/layout}">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/aside.css}">
+    <link rel="stylesheet" th:href="@{/css/page/admin_signup.css}">
+
+</th:block>
+<th:block layout:fragment="js">
+    <script th:src="@{/js/page/admin_signup.js}"></script>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content-header">관리자 등록/관리</div>
+    <div class="content-container">
+        <aside class="aside"
+               th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu2='관리자 로그')"></aside>
+        <div class="signup-container">
+            <form action="/user/signup" method="POST" class="signup-form-wrap">
+                <div class="signup-form">
+                    <div class="row form-userid">
+                        <label name="userid" for="userid" class="form-userid-label form-label-base">아이디*</label>
+                        <div class="form-text-wrap">
+                            <input type="text" name="userid" id="userid" class="form-userid-input" required>
+                            <div class="form-input-condition">
+                                ※영문/숫자5자리이상,12자리이하
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-username">
+                        <label name="username" for="username" class="form-username-label form-label-base">성명*</label>
+                        <div class="form-text-wrap">
+                            <input type="text" name="username" id="username" class="form-username-input" required>
+                        </div>
+                    </div>
+                    <div class="row form-team">
+                        <label name="team" for="team" class="form-team-label form-label-base">소속</label>
+                        <div class="form-text-wrap">
+                            <input type="text" name="team" id="team" class="form-team-input">
+                        </div>
+                    </div>
+                    <div class="row form-phone">
+                        <label name="phone" for="phone1" class="form-phone-label form-label-base">연락처</label>
+                        <div class="form-text-wrap">
+                            <div class="form-phone-input-wrap">
+                                <input type="text" name="phone1" id="phone1" class="form-phone-input">-
+                                <input type="text" name="phone2" id="phone2" class="form-phone-input">-
+                                <input type="text" name="phone3" id="phone3" class="form-phone-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-pwd">
+                        <label name="pwd" for="pwd" class="form-pwd-label form-label-base">비밀번호*</label>
+                        <div class="form-text-wrap">
+                            <input type="password" name="pwd" id="pwd" class="form-pwd-input" required>
+                            <div class="form-input-condition">
+                                ※영문/숫자조합8자리이상, 12자리이하
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-pwd-check">
+                        <label name="pwd-check" for="pwd-check"
+                               class="form-pwd-check-label form-label-base">비밀번호(확인)*</label>
+                        <div class="form-text-wrap">
+                            <input type="password" name="pwd-check" id="pwd-check" class="form-pwd-check-input" required >
+                        </div>
+                    </div>
+                    <div class="row form-admin">
+                        <label name="authority" class="form-authority-label form-label-base">관리자 권한*</label>
+                        <div class="form-text-wrap">
+                            <div class="form-authority-radio-wrap">
+                                <input type="radio" name="authority-radio" id="authority-master" onclick="javascript:clickAdminButton()">
+                                <label for="authority-master">마스터관리자</label>
+                                <input type="radio" name="authority-radio" id="authority-normal">
+                                <label for="authority-normal">일반관리자</label>
+                            </div>
+                            <div class="form-input-condition">
+                                ※일반관리자는 상세권한을 아래에서 선택해주세요.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-authority-container">
+                    <div class="row form-authority-title">관리자(사용자) 관리</div>
+                    <div class="row form-authority-content">
+                        <input type="checkbox" name="admin" id="admin" class="authority-checkbox">
+                        <label for="admin">관리자 등록/관리</label>
+                    </div>
+                    <div class="row form-authority-title">제품관리</div>
+                    <div class="row form-authority-content">
+                        <input type="checkbox" name="upsProduct" id="upsProduct" class="authority-checkbox">
+                        <label for="upsProduct">UPS&STS</label>
+                        <input type="checkbox" name="coolingProduct" id="coolingProduct" class="authority-checkbox">
+                        <label for="coolingProduct">COOLING</label>
+                        <input type="checkbox" name="lightingProduct" id="lightingProduct" class="authority-checkbox">
+                        <label for="lightingProduct">LIGHTING</label>
+                        <input type="checkbox" name="railroadProduct" id="railroadProduct" class="authority-checkbox">
+                        <label for="railroadProduct">RAILROAD</label>
+                    </div>
+                    <div class="row form-authority-title">구축사례관리</div>
+                    <div class="row form-authority-content">
+                        <input type="checkbox" name="upsExample" id="upsExample" class="authority-checkbox">
+                        <label for="upsExample">UPS&STS</label>
+                        <input type="checkbox" name="coolingExample" id="coolingExample" class="authority-checkbox">
+                        <label for="coolingExample">COOLING</label>
+                        <input type="checkbox" name="lightingExample" id="lightingExample" class="authority-checkbox">
+                        <label for="lightingExample">LIGHTING</label>
+                        <input type="checkbox" name="railroadExample" id="railroadExample" class="authority-checkbox">
+                        <label for="railroadExample">RAILROAD</label>
+                    </div>
+                    <div class="row form-authority-title">홍보센터 관리</div>
+                    <div class="row form-authority-content">
+                        <input type="checkbox" name="social" id="social" class="authority-checkbox">
+                        <label for="social">사회공헌</label>
+                        <input type="checkbox" name="news" id="news" class="authority-checkbox">
+                        <label for="news">뉴스룸</label>
+                    </div>
+                    <div class="row form-authority-title">채용안내 관리</div>
+                    <div class="row form-authority-content">
+                        <input type="checkbox" name="recruit" id="recruit" class="authority-checkbox">
+                        <label for="recruit">채용공고</label>
+                    </div>
+                    </div>
+                </div>
+                <div class="signup-btn-box">
+                    <button type="button" class="signup-submit signup-btn" onclick="javascript:validationForm()">등록</button>
+                    <a href="/user/all" class="signup-cancel signup-btn">취소</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
