@@ -21,7 +21,7 @@ public class SessionInterceptor implements HandlerInterceptor {
             response.sendRedirect("/user/login");
             return false;
         }
-        logger.info("Login User: " + user.getUsername());
+        logger.info("Login User: " + user.getName());
         return true;
     }
 }

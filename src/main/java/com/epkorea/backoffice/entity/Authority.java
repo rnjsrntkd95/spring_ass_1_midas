@@ -36,7 +36,7 @@ public class Authority {
 
     public Set<String> getAuthoritiesSet() {
         Set<String> authorities = new HashSet<>();
-        for(String col : this.toString().split(",")) {
+        for(String col : this.getAuthoritiesToString().split(",")) {
             String[] authority = col.split("=");
             if (authority[1].equals("true")) {
                 authorities.add(authority[0]);
@@ -45,8 +45,7 @@ public class Authority {
         return authorities;
     }
 
-    @Override
-    public String toString() {
+    public String getAuthoritiesToString() {
         return "admin=" + admin +
                 ", upsProduct=" + upsProduct +
                 ", coolingProduct=" + coolingProduct +

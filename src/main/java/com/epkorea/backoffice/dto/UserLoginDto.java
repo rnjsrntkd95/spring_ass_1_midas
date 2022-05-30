@@ -20,7 +20,7 @@ public class UserLoginDto {
     public static class Response {
         private Long uid;
         private String userid;
-        private String username;
+        private String name;
         private String team;
         private String phone;
         private LocalDateTime createDate;
@@ -29,7 +29,7 @@ public class UserLoginDto {
         public Response(User user) {
             this.uid = user.getUid();
             this.userid = user.getUserid();
-            this.username = user.getUsername();
+            this.name = user.getName();
             this.team = user.getTeam();
             this.phone = user.getPhone();
             this.createDate = user.getCreateDate();

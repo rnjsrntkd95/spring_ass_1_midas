@@ -40,7 +40,7 @@
                 <div class="admin-row" th:each="admin, i : ${admin_list}">
                     <div class="admin-row-number" th:text="${total_elements - 10 * current_page - i.count + 1}"></div>
                     <div class="admin-row-userid" th:text="${admin.getUserid()}"></div>
-                    <div class="admin-row-name" th:text="${admin.getUsername()}"></div>
+                    <div class="admin-row-name" th:text="${admin.getName()}"></div>
                     <div class="admin-row-team" th:text="${admin.getTeam()}"></div>
                     <div class="admin-row-date"
                          th:text="${#temporals.format(admin.getCreateDate(), 'yyyy.MM.dd')}"></div>

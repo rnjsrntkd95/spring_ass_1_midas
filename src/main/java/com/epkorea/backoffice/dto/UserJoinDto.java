@@ -8,15 +8,15 @@ public class UserJoinDto {
     @Setter
     public static class Request {
         private String userid;
-        private String username;
+        private String name;
         private String team;
         private String phone;
         private String pwd;
         private AuthorityDto authority;
 
-        public Request(String userid, String username, String team, String phone1, String phone2, String phone3, String pwd, Boolean admin, Boolean upsProduct, Boolean coolingProduct, Boolean lightingProduct, Boolean railroadProduct, Boolean upsExample, Boolean coolingExample, Boolean lightingExample, Boolean railroadExample, Boolean social, Boolean recruit) {
+        public Request(String userid, String name, String team, String phone1, String phone2, String phone3, String pwd, Boolean admin, Boolean upsProduct, Boolean coolingProduct, Boolean lightingProduct, Boolean railroadProduct, Boolean upsExample, Boolean coolingExample, Boolean lightingExample, Boolean railroadExample, Boolean social, Boolean recruit) {
             this.userid = userid;
-            this.username = username;
+            this.name = name;
             this.team = team;
             this.phone = phone1 + '-' + phone2 + '-' + phone3;
             this.pwd = pwd;
