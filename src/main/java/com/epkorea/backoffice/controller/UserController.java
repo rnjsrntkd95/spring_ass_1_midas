@@ -1,6 +1,9 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.*;
+import com.epkorea.backoffice.dto.UserJoinDto;
+import com.epkorea.backoffice.dto.UserLogPageDto;
+import com.epkorea.backoffice.dto.UserLogSearchDto;
+import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.service.UserLogService;
 import com.epkorea.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,20 +41,6 @@ public class UserController {
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String loginProcess(@ModelAttribute UserLoginDto.Request userLoginDto, HttpServletRequest request, HttpSession session) {
-        userLoginDto.setSessionId(session.getId());
-        userLoginDto.setIp(request.getRemoteAddr());
-
-        UserLoginDto.Response user = userService.login(userLoginDto);
-        if (user == null) {
-            return "login";
-        }
-        session.setAttribute("user", user);
-
-        return "redirect:/user/all";
     }
 
     @GetMapping("/logout")

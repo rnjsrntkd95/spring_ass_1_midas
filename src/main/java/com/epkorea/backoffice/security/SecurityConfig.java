@@ -21,11 +21,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/", "/user/all", "user/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .and()
-                .httpBasic();
+                .mvcMatchers("/user/log").hasAuthority("admin")
+                .anyRequest().authenticated();
+        http.formLogin()
+                .loginPage("/user/login")
+                .defaultSuccessUrl("/user/all");
+        http.logout()
+                .logoutSuccessUrl("/user/all");
+        http.httpBasic();
     }
 
     @Override

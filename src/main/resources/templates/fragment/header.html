@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <header th:fragment="headerFragment" id="header" class="header">
 
     <div class="header-logo">
@@ -16,12 +18,12 @@
     </div>
 
     <div class="header-user">
-        <th:block th:if="${loginUser != null}">
-            <p th:text="${loginUser.getUsername()}"></p>
+        <th:block sec:authorize="isAuthenticated()">
+            <p sec:authentication="principal.name"></p>
 
             <a href="/user/logout">로그아웃</a>
         </th:block>
-        <th:block th:unless="${loginUser != null}">
+        <th:block sec:authorize="isAnonymous()">
             <a href="/user/login">로그인</a>
         </th:block>
 
