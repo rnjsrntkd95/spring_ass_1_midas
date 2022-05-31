@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserLogService {
     private static final int PAGE_LENGTH = 10;
     private static final int PAGE_WEIGHT = 1;  // URL currentPage 파라매터 직관성을 위한 가중치
@@ -32,6 +32,7 @@ public class UserLogService {
         return UserLogPageDto.setUserLogPageDto(userLogSearchDto, userLogPage);
     }
 
+    @Transactional
     public void loggingUserConnection(String userid, String ip, String sessionId, boolean isLogin) {
         UserLog userLog = UserLog.createUserLog(userid, ip, sessionId, isLogin);
         userLoggingRepository.save(userLog);

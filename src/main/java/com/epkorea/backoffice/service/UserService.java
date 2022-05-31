@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUserid(username)
+        return userRepository.findByUseridWithAuthorities(username)
                 .orElseThrow(() -> {
                     throw new IllegalStateException("Not Found User");
                 });

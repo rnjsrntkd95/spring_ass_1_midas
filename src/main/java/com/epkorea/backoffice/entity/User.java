@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aid")
     private Authority authority;
 
