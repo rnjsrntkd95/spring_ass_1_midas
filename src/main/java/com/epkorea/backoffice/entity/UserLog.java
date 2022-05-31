@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="user_logs")
+@Table(name = "user_logs")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -32,4 +32,13 @@ public class UserLog {
 
     @Column(name = "login_date")
     private LocalDateTime loginDate;
+
+    public static UserLog createUserLog(String userid, String ip, String sessionId, boolean isLogin) {
+        return UserLog.builder()
+                .userid(userid)
+                .ip(ip)
+                .sessionId(sessionId)
+                .isLogin(isLogin)
+                .build();
+    }
 }

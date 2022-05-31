@@ -39,7 +39,9 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+        request.getSession().setAttribute("prevPage", referer);
         return "login";
     }
 
@@ -58,7 +60,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public String signUpProcess(@ModelAttribute UserJoinDto.Request userJoinDto) {
-        Long user_id =  userService.joinUser(userJoinDto);
+        userService.joinUser(userJoinDto);
         return "redirect:/user/all";
     }
 

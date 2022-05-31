@@ -16,6 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
+    private final LoginSuccessHandler loginSuccessHandler;
+    private final LoginFailureHandler loginFailureHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -25,7 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/user/login")
-                .defaultSuccessUrl("/user/all");
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler);
         http.logout()
                 .logoutSuccessUrl("/user/all");
         http.httpBasic();
