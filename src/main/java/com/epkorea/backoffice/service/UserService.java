@@ -6,7 +6,7 @@ import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.entity.Authority;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
-import com.epkorea.backoffice.repository.mapper.UserMapper;
+import com.epkorea.backoffice.repository.projection.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

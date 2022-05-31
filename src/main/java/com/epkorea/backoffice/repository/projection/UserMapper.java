@@ -1,4 +1,4 @@
-package com.epkorea.backoffice.repository.mapper;
+package com.epkorea.backoffice.repository.projection;
 
 import java.time.LocalDateTime;
 
