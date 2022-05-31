@@ -5,7 +5,6 @@ import lombok.Getter;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-  // URL currentPage 파라매터 직관성을 위한 가중치
 
 @Getter
 @Builder

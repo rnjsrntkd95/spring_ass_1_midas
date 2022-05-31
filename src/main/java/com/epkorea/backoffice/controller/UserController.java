@@ -1,6 +1,9 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.*;
+import com.epkorea.backoffice.dto.UserJoinDto;
+import com.epkorea.backoffice.dto.UserLogPageDto;
+import com.epkorea.backoffice.dto.UserLogSearchDto;
+import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.service.UserLogService;
 import com.epkorea.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,27 +35,14 @@ public class UserController {
         modelAndView.addObject("total_pages", usersPageInfoDto.getTotalPages());
         modelAndView.addObject("current_page", usersPageInfoDto.getCurrentPage());
         modelAndView.addObject("total_elements", usersPageInfoDto.getTotalElements());
-
         return modelAndView;
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+        request.getSession().setAttribute("prevPage", referer);
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String loginProcess(@ModelAttribute UserLoginDto.Request userLoginDto, HttpServletRequest request, HttpSession session) {
-        userLoginDto.setSessionId(session.getId());
-        userLoginDto.setIp(request.getRemoteAddr());
-
-        UserLoginDto.Response user = userService.login(userLoginDto);
-        if (user == null) {
-            return "login";
-        }
-        session.setAttribute("user", user);
-
-        return "redirect:/user/all";
     }
 
     @GetMapping("/logout")
@@ -70,7 +60,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public String signUpProcess(@ModelAttribute UserJoinDto.Request userJoinDto) {
-        Long user_id =  userService.joinUser(userJoinDto);
+        userService.joinUser(userJoinDto);
         return "redirect:/user/all";
     }
 

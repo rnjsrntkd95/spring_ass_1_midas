@@ -19,7 +19,7 @@
         <aside class="aside"
                th:replace="fragment/aside :: asideFragment(title='관리자 관리', menu1='관리자 등록/관리', menu2='관리자 로그')"></aside>
         <div class="signup-container">
-            <form action="/user/signup" method="POST" class="signup-form-wrap">
+            <form action="/user/signup" th:action="@{/user/signup}" method="POST" class="signup-form-wrap">
                 <div class="signup-form">
                     <div class="row form-userid">
                         <label name="userid" for="userid" class="form-userid-label form-label-base">아이디*</label>
@@ -33,7 +33,7 @@
                     <div class="row form-username">
                         <label name="username" for="username" class="form-username-label form-label-base">성명*</label>
                         <div class="form-text-wrap">
-                            <input type="text" name="username" id="username" class="form-username-input" required>
+                            <input type="text" name="name" id="username" class="form-username-input" required>
                         </div>
                     </div>
                     <div class="row form-team">

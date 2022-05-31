@@ -13,13 +13,13 @@ public class UsersPageInfoDto {
     @Setter
     public static class UserDto {
         private String userid;
-        private String username;
+        private String name;
         private String team;
         private LocalDateTime createDate;
 
         public UserDto(UserMapper user) {
             this.userid = user.getUserid();
-            this.username = user.getUsername();
+            this.name = user.getName();
             this.team = user.getTeam();
             this.createDate = user.getCreateDate();
         }

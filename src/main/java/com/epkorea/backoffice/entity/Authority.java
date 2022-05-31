@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="authorities")
@@ -34,19 +32,7 @@ public class Authority {
     @OneToOne(mappedBy = "authority", fetch = FetchType.LAZY)
     private User user;
 
-    public Set<String> getAuthoritiesSet() {
-        Set<String> authorities = new HashSet<>();
-        for(String col : this.toString().split(",")) {
-            String[] authority = col.split("=");
-            if (authority[1].equals("true")) {
-                authorities.add(authority[0]);
-            }
-        }
-        return authorities;
-    }
-
-    @Override
-    public String toString() {
+    public String getAuthoritiesToString() {
         return "admin=" + admin +
                 ", upsProduct=" + upsProduct +
                 ", coolingProduct=" + coolingProduct +
