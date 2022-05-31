@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="social_contributions")
+@Table(name = "social_contributions")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,7 +19,10 @@ public class SocialContribution {
     private Long sid;
 
     @Column(nullable = false)
-    private String image;
+    private String originImagePath;
+
+    @Column(nullable = false)
+    private String imagePath;
 
     private boolean isShow;
 
@@ -30,9 +33,10 @@ public class SocialContribution {
     @JoinColumn(name = "uid")
     private User writer;
 
-    public static SocialContribution createSocialContribution(String image, boolean isShow, LocalDate showDate, User writer) {
+    public static SocialContribution createSocialContribution(String originImagePath, String imagePath, boolean isShow, LocalDate showDate, User writer) {
         return SocialContribution.builder()
-                .image(image)
+                .originImagePath(originImagePath)
+                .imagePath(imagePath)
                 .isShow(isShow)
                 .showDate(showDate)
                 .writer(writer)
