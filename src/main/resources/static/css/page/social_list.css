@@ -1,0 +1,78 @@
+
+.social-container {
+    flex-grow: 1;
+    padding: 0 60px;
+}
+.social-list-guide, .social-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    height: 40px;
+}
+.social-row > div, .social-list-guide > div{
+    display: flex;
+    justify-content: center;
+}
+.social-row {
+    border-bottom: 1px solid grey;
+}
+.social-row:last-child {
+    border-bottom: 2px solid black;
+
+}
+.social-list-guide {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    background-color: #f4f4f4;
+}
+.social-row-number {
+    flex: 1;
+}
+.social-row-title {
+    flex: 8;
+}
+.social-row-show {
+    flex: 3;
+}
+.social-row-date {
+    flex: 3;
+}
+.social-search {
+    width: 100%;
+    height: 35px;
+    margin: 20px 0;
+
+    display: flex;
+    justify-content: flex-end;
+}
+.social-search-menu {
+    width: 100px;
+}
+.social-search-input {
+    width: 200px;
+    margin: 0 10px;
+}
+.social-search-submit {
+    width: 75px;
+}
+.social-signup {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.social-signup-btn {
+    width: 75px;
+    height: 35px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    font-size: 13px;
+    color: black;
+    background-color: #EFEFEF;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 6px;
+}

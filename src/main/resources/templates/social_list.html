@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragment/layout}">
+
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/aside.css}">
+    <link rel="stylesheet" th:href="@{/css/page/social_list.css}">
+    <link rel="stylesheet" th:href="@{/css/pagination_bar.css}">
+</th:block>
+<th:block layout:fragment="js">
+    <script th:src="@{/js/pagination_bar.js}"></script>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content-header">사회공헌</div>
+    <div class="content-container">
+        <aside class="aside"
+               th:replace="fragment/aside :: asideFragment(title='홍보센터', menu1='사회공헌', menu1_url='/social', menu2='뉴스룸', menu2_url='/social')"></aside>
+        <div class="social-container">
+            <form method="GET">
+                <div class="social-search">
+                    <select name="condition" class="social-search-menu">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" class="social-search-input" name="kwd" autocomplete="off">
+                    <input type="submit" class="social-search-submit" value="검색"/>
+                </div>
+            </form>
+
+            <div class="social-list-box">
+                <div class="social-list-guide">
+                    <div class="social-row-number">번호</div>
+                    <div class="social-row-title">제목</div>
+                    <div class="social-row-date">보도일</div>
+                    <div class="social-row-show">노출여부</div>
+                </div>
+                <div class="social-row" th:each="social, i : ${social_list}">
+                    <div class="social-row-number" th:text="${total_elements - 10 * current_page - i.count + 1}"></div>
+                    <div class="social-row-title" th:text="${social.getTitle()}"></div>
+                    <div class="social-row-date"
+                         th:text="${#temporals.format(social.getShowDate(), 'yyyy.MM.dd')}"></div>
+                    <div class="social-row-show" th:text="${social.isShow() ? 'Y' : 'N'}"></div>
+                </div>
+            </div>
+            <div class="social-signup">
+                <div class="social-page-bar"
+                     th:replace="fragment/pagination_bar :: paginationFragment(totalPages=${total_pages}, currentPage=${current_page})"></div>
+                <a sec:authorize="hasAuthority('social')" href="/user/signup" class="admin-signup-btn">신규등록</a>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
