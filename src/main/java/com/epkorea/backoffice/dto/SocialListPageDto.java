@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class SocialListPageDto {
 
     private String title;
-    private LocalDateTime showDate;
+    private LocalDate showDate;
     private boolean isShow;
 
     private static SocialListPageDto toDto(SocialPageProjection socialPageEntity) {

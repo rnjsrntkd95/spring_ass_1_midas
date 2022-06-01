@@ -1,10 +1,10 @@
 package com.epkorea.backoffice.repository.projection;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public interface SocialPageProjection {
 
     String getTitle();
-    LocalDateTime getShowDate();
+    LocalDate getShowDate();
     boolean getIsShow();
 }
