@@ -33,10 +33,15 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUseridWithAuthorities(username)
+        User user = userRepository.findByUseridWithAuthorities(username)
                 .orElseThrow(() -> {
                     throw new IllegalStateException("Not Found User");
                 });
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getUserid())
+                .password(user.getPassword())
+                .roles(user.getRolesFromAuthority())
+                .build();
     }
 
     public UsersPageInfoDto.Response findAllUserInfo(UsersPageInfoDto.Request userDto) {
