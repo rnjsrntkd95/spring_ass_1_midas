@@ -1,6 +1,6 @@
 package com.epkorea.backoffice.dto;
 
-import com.epkorea.backoffice.repository.mapper.UserMapper;
+import com.epkorea.backoffice.repository.projection.UserMapper;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
