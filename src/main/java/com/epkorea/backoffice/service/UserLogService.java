@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserLogService {
     private static final int PAGE_LENGTH = 10;
     private static final int PAGE_WEIGHT = 1;  // URL currentPage 파라매터 직관성을 위한 가중치
-
     @Autowired
     UserLoggingRepository userLoggingRepository;
 

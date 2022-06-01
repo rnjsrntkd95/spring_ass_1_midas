@@ -1,6 +1,5 @@
 package com.epkorea.backoffice.dto;
 
-import com.epkorea.backoffice.repository.projection.SocialPageProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,14 +17,12 @@ public class SocialResponseDto {
     private int totalPages;
     private Long totalElements;
 
-    public static SocialResponseDto createSocialResponse(int currentPage, Page<SocialPageProjection> socialEntityList) {
-        final int PAGE_WEIGHT = 1;
-
+    public static SocialResponseDto createSocialResponse(int currentPage, Page<SocialListPageDto> socialListPageDto) {
         return SocialResponseDto.builder()
-                .socialList(SocialListPageDto.toDtoList(socialEntityList.getContent()))
-                .currentPage(currentPage - PAGE_WEIGHT)
-                .totalPages(socialEntityList.getTotalPages())
-                .totalElements(socialEntityList.getTotalElements())
+                .socialList(socialListPageDto.getContent())
+                .currentPage(currentPage)
+                .totalPages(socialListPageDto.getTotalPages())
+                .totalElements(socialListPageDto.getTotalElements())
                 .build();
     }
 }

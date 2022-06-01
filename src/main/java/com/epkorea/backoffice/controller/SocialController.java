@@ -17,8 +17,12 @@ public class SocialController {
     private final SocialService socialService;
 
     @GetMapping("")
-    public ModelAndView showSocialList(@RequestParam(value="currentPage", defaultValue = "1") int currentPage, ModelAndView modelAndView) {
-        SocialResponseDto socialResponseDto = socialService.getSocialList(currentPage);
+    public ModelAndView showSocialList(
+            @RequestParam(value="currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(value="condition", defaultValue = "") String condition,
+            @RequestParam(value="kwd", defaultValue = "") String kwd,
+            ModelAndView modelAndView) {
+        SocialResponseDto socialResponseDto = socialService.getSocialList(currentPage, condition, kwd);
 
         modelAndView.setViewName("social_list");
         modelAndView.addObject("socialList", socialResponseDto.getSocialList());

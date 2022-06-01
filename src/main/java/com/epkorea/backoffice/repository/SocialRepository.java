@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SocialRepository extends JpaRepository<SocialContribution, Long> {
+public interface SocialRepository extends JpaRepository<SocialContribution, Long>, SocialCustomRepository {
     Page<SocialPageProjection> findAllByOrderByShowDateDesc(Pageable pageable);
 }
