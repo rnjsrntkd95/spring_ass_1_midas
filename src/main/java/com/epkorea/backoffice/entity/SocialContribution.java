@@ -1,15 +1,13 @@
 package com.epkorea.backoffice.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "social_contributions")
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,8 +37,10 @@ public class SocialContribution {
     @JoinColumn(name = "uid")
     private User writer;
 
-    public static SocialContribution createSocialContribution(String originImagePath, String imagePath, boolean isShow, LocalDateTime showDate, User writer) {
+    public static SocialContribution createSocialContribution(String title, String content, String originImagePath, String imagePath, boolean isShow, LocalDateTime showDate, User writer) {
         return SocialContribution.builder()
+                .title(title)
+                .content(content)
                 .originImagePath(originImagePath)
                 .imagePath(imagePath)
                 .isShow(isShow)
