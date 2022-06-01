@@ -40,23 +40,20 @@ public class User {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "aid")
-    private Authority authority;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Builder.Default
+    List<Role> roles = new ArrayList<>();
 
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
     }
 
-    public String[] getRolesFromAuthority() {
-        List<String> rolesList = new ArrayList<>();
-        for (String col : authority.getAuthoritiesToString().split(",")) {
-            String[] authority = col.split("=");
-            if (authority[1].equals("true")) {
-                rolesList.add(authority[0].trim());
-            }
-        }
-        return rolesList.toArray(String[]::new);
+    public String[] getRoleNames() {
+        return roles.stream().map(role -> role.getRole().name()).toArray(String[]::new);
+    }
+
+    public void addRoles(List<Role> roles) {
+        this.roles.addAll(roles);
     }
 }

@@ -1,9 +1,8 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.dto.AuthorityDto;
 import com.epkorea.backoffice.dto.UserJoinDto;
 import com.epkorea.backoffice.dto.UsersPageInfoDto;
-import com.epkorea.backoffice.entity.Authority;
+import com.epkorea.backoffice.entity.Role;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
 import com.epkorea.backoffice.repository.projection.UserMapper;
@@ -17,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,20 +27,19 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private AuthorityService authorityService;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUseridWithAuthorities(username)
+        User user = userRepository.findByUseridWithRoles(username)
                 .orElseThrow(() -> {
                     throw new IllegalStateException("Not Found User");
                 });
+
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUserid())
                 .password(user.getPassword())
-                .roles(user.getRolesFromAuthority())
+                .roles(user.getRoleNames())
                 .build();
     }
 
@@ -76,8 +75,6 @@ public class UserService implements UserDetailsService {
     @Transactional
     public Long joinUser(UserJoinDto.Request userJoinDto) {
         validateDuplicateUser(userJoinDto.getUserid());
-        AuthorityDto authorityDto = userJoinDto.getAuthority();
-        Authority authority = authorityService.grantAuthority(authorityDto);
 
         User user = User.builder()
                 .userid(userJoinDto.getUserid())
@@ -85,9 +82,11 @@ public class UserService implements UserDetailsService {
                 .password(userJoinDto.getPwd())
                 .team(userJoinDto.getTeam())
                 .phone(userJoinDto.getPhone())
-                .authority(authority)
                 .build();
         user.encodePassword(passwordEncoder);
+
+        List<Role> roles = Role.createRoles(user, userJoinDto.getRoles());
+        user.addRoles(roles);
         user = userRepository.save(user);
 
         return user.getUid();

@@ -26,7 +26,7 @@ public class UserController {
     private UserLogService userLogService;
 
     @GetMapping("/all")
-    public ModelAndView getAllUsers(HttpServletRequest request, @ModelAttribute UsersPageInfoDto.Request userDto) {
+    public ModelAndView getAllUsers(@ModelAttribute UsersPageInfoDto.Request userDto) {
         UsersPageInfoDto.Response usersPageInfoDto = userService.findAllUserInfo(userDto);
 
         ModelAndView modelAndView = new ModelAndView();

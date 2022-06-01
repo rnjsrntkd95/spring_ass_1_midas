@@ -50,7 +50,7 @@
             <div class="social-signup">
                 <div class="social-page-bar"
                      th:replace="fragment/pagination_bar :: paginationFragment(totalPages=${total_pages}, currentPage=${current_page})"></div>
-                <a sec:authorize="hasRole('social')" href="/social/post" class="social-signup-btn">신규등록</a>
+                <a sec:authorize="hasRole('SOCIAL')" href="/social/post" class="social-signup-btn">신규등록</a>
             </div>
         </div>
     </div>

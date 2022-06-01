@@ -51,7 +51,7 @@
             <div class="admin-signup">
                 <div class="admin-page-bar"
                      th:replace="fragment/pagination_bar :: paginationFragment(totalPages=${total_pages}, currentPage=${current_page})"></div>
-                <a sec:authorize="hasRole('admin')" href="/user/signup" class="admin-signup-btn">신규등록</a>
+                <a sec:authorize="hasRole('ADMIN')" href="/user/signup" class="admin-signup-btn">신규등록</a>
             </div>
         </div>
     </div>
