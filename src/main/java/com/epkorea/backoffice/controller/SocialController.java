@@ -25,10 +25,10 @@ public class SocialController {
         SocialResponseDto socialResponseDto = socialService.getSocialList(currentPage, condition, kwd);
 
         modelAndView.setViewName("social_list");
-        modelAndView.addObject("socialList", socialResponseDto.getSocialList());
-        modelAndView.addObject("currentPage", socialResponseDto.getCurrentPage());
-        modelAndView.addObject("totalPages", socialResponseDto.getTotalPages());
-        modelAndView.addObject("totalElements", socialResponseDto.getTotalElements());
+        modelAndView.addObject("social_list", socialResponseDto.getSocialList());
+        modelAndView.addObject("current_page", socialResponseDto.getCurrentPage());
+        modelAndView.addObject("total_pages", socialResponseDto.getTotalPages());
+        modelAndView.addObject("total_elements", socialResponseDto.getTotalElements());
 
         return modelAndView;
     }
