@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/layout}">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/aside.css}">
+    <link rel="stylesheet" th:href="@{/css/page/social_new.css}">
+
+</th:block>
+<th:block layout:fragment="js">
+    <script>
+        document.getElementById('showDate').value= new Date().toISOString().slice(0, 10);
+    </script>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content-header">사회공헌</div>
+    <div class="content-container">
+        <aside class="aside"
+               th:replace="fragment/aside :: asideFragment(title='홍보센터', menu1='사회공헌', menu1_url='/social', menu2='뉴스룸')"></aside>
+        <div class="signup-container">
+            <form action="/social/new" th:action="@{/social/new}" method="POST" enctype="multipart/form-data" class="signup-form-wrap">
+                <div class="signup-form">
+                    <div class="row form-userid">
+                        <label name="userid" for="title" class="form-userid-label form-label-base">제목*</label>
+                        <div class="form-text-wrap">
+                            <input type="text" name="title" id="title" class="form-userid-input" required>
+                        </div>
+                    </div>
+                    <div class="row form-username">
+                        <label name="username" for="picture" class="form-username-label form-label-base">썸네일
+                            이미지*</label>
+                        <div class="form-text-wrap">
+                            <input type="file" name="picture" id="picture" class="form-username-input">
+                        </div>
+                    </div>
+                    <div class="row form-team">
+                        <label name="team" for="isShow" class="form-team-label form-label-base">노출 여부</label>
+                        <div class="form-text-wrap">
+                            <select name="isShow" id="isShow" class="isShow">
+                                <option value="Y">Y</option>
+                                <option value="N">X</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-phone">
+                        <label name="showDate" for="showDate" class="form-phone-label form-label-base">보도일*</label>
+                        <div class="form-text-wrap">
+                            <input type="date" name="showDate" id="showDate" class="showDate">
+                        </div>
+                    </div>
+                    <div class="row form-authority-content">
+                        <input type="text" name="admin" id="admin" class="form-content-input">
+                    </div>
+                </div>
+                <div class="signup-btn-box">
+                    <input type="submit" class="signup-submit signup-btn" value="등록">
+                    <a href="/social" class="signup-cancel signup-btn">취소</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      layout:decorate="~{fragment/layout}">-->
+
+<!--<th:block layout:fragment="css">-->
+<!--    &lt;!&ndash;    <link rel="stylesheet" th:href="@{/css/page/home.css}" >&ndash;&gt;-->
+<!--</th:block>-->
+<!--<th:block layout:fragment="js">-->
+<!--    &lt;!&ndash;    <script th:src="@{/js/page/home.js}"></script>&ndash;&gt;-->
+<!--</th:block>-->
+
+<!--<div layout:fragment="content">-->
+<!--    <form action="/social/new" th:action="@{/social/new}" th:object="${social_form}" method="POST" enctype="multipart/form-data">-->
+<!--        <input type="text" name="title" th:field="*{title}">-->
+<!--        <input type="text" name="content" th:field="*{content}">-->
+<!--        <select name="isShow" id="isShow">-->
+<!--            <option value="Y">Y</option>-->
+<!--            <option value="N">X</option>-->
+<!--        </select>-->
+<!--        <input type="date" name="showDate" th:field="*{showDate}">-->
+<!--        <input type="file" name="picture" th:field="*{picture}">-->
+<!--        <input type="submit" value="제출">-->
+<!--    </form>-->
+<!--</div>-->
+<!--</html>-->
