@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Service
@@ -39,8 +39,8 @@ public class SocialService {
     public Long createSocial(SocialFormRequestDto requestDto, String userid) throws IOException {
         String title = requestDto.getTitle();
         String content = requestDto.getContent();
-        boolean isShow = requestDto.isShow();
-        LocalDateTime showDate = requestDto.getShowDate();
+        boolean isShow = requestDto.getIsShow().equals("Y");
+        LocalDate showDate = LocalDate.parse(requestDto.getShowDate());
 
         MultipartFile picture = requestDto.getPicture();
         String originImagePath = picture.getOriginalFilename();
