@@ -13,8 +13,8 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserid(String userid);
-    @Query("select u from User u join fetch u.authority where u.userid=:userid")
-    Optional<User> findByUseridWithAuthorities(@Param(value="userid") String userid);
+    @Query("select u from User u join fetch u.roles r where u.userid=:userid")
+    Optional<User> findByUseridWithRoles(@Param(value="userid") String userid);
     Page<UserMapper> findAllByOrderByCreateDateDesc(Pageable pageable);
     Page<UserMapper> findAllByNameContainingOrTeamContainingOrderByCreateDateDesc(String name, String team, Pageable pageable);
     Page<UserMapper> findAllByNameContainingOrderByCreateDateDesc(String name, Pageable pageable);
