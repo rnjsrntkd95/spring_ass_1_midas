@@ -10,7 +10,10 @@
 </th:block>
 <th:block layout:fragment="js">
     <script>
-        document.getElementById('showDate').value= new Date().toISOString().slice(0, 10);
+        let date = document.getElementById('showDate')
+        if (!date.value) {
+            date.value = new Date().toISOString().slice(0, 10);
+        }
     </script>
 </th:block>
 
@@ -57,6 +60,7 @@
                     </div>
                 </div>
                 <div class="signup-btn-box">
+
                     <input type="submit" class="signup-submit signup-btn" value="등록">
                     <a href="/social" class="signup-cancel signup-btn">취소</a>
                 </div>

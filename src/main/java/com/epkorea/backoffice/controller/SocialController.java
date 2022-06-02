@@ -58,4 +58,11 @@ public class SocialController {
 
         return "social_new";
     }
+
+    @PostMapping("/{socialId}/edit")
+    public String updateSocial(SocialFormRequestDto socialFormRequestDto, Authentication authentication, @PathVariable("socialId") Long SocialId) throws IOException {
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        socialService.createSocial(socialFormRequestDto, principal.getUsername());
+        return "redirect:/social";
+    }
 }

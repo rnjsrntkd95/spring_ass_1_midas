@@ -42,8 +42,6 @@ public class SocialCustomRepositoryImpl implements SocialCustomRepository {
                 .fetch().size();
 
         return new PageImpl<>(content, pageable, totalSize);
-
-
     }
 
     private BooleanExpression titleContains(String condition, String kwd) {
