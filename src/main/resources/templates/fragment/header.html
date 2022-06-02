@@ -19,7 +19,7 @@
 
     <div class="header-user">
         <th:block sec:authorize="isAuthenticated()">
-            <p sec:authentication="principal.name"></p>
+            <p sec:authentication="principal.username"></p>
 
             <a href="/user/logout">로그아웃</a>
         </th:block>
