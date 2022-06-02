@@ -37,8 +37,9 @@ public class SocialContribution {
     @JoinColumn(name = "uid")
     private User writer;
 
-    public static SocialContribution createSocialContribution(String title, String content, String originImagePath, String imagePath, boolean isShow, LocalDate showDate, User writer) {
+    public static SocialContribution createSocialContribution(Long sid, String title, String content, String originImagePath, String imagePath, boolean isShow, LocalDate showDate, User writer) {
         return SocialContribution.builder()
+                .sid(sid)
                 .title(title)
                 .content(content)
                 .originImagePath(originImagePath)

@@ -1,5 +1,6 @@
 package com.epkorea.backoffice.security;
 
+import com.epkorea.backoffice.entity.RoleEnum;
 import com.epkorea.backoffice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -23,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/", "/user/all", "/user/login").permitAll()
-                .mvcMatchers("/user/log", "/user/signup").hasRole("ADMIN")
-                .mvcMatchers("/social").hasRole("SOCIAL")
+                .mvcMatchers("/user/log", "/user/signup").hasRole(RoleEnum.ADMIN.name())
+                .mvcMatchers("/social").hasRole(RoleEnum.SOCIAL.name())
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/user/login")

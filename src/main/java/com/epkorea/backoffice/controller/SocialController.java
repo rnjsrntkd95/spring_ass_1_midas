@@ -1,6 +1,7 @@
 package com.epkorea.backoffice.controller;
 
 import com.epkorea.backoffice.dto.SocialFormRequestDto;
+import com.epkorea.backoffice.dto.SocialFormResponseDto;
 import com.epkorea.backoffice.dto.SocialResponseDto;
 import com.epkorea.backoffice.service.SocialService;
 import lombok.RequiredArgsConstructor;
@@ -8,10 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -41,8 +39,7 @@ public class SocialController {
     }
 
     @GetMapping("/new")
-    public String createSocialForm(Model model) {
-        model.addAttribute("social_form", new SocialFormRequestDto());
+    public String createSocialForm() {
         return "social_new";
     }
 
@@ -54,4 +51,18 @@ public class SocialController {
         return "redirect:/social";
     }
 
+    @GetMapping("/{socialId}/edit")
+    public String updateSocial(@PathVariable("socialId") Long SocialId, Model model) {
+        SocialFormResponseDto socialForm = socialService.findSocial(SocialId);
+        model.addAttribute("social_form", socialForm);
+
+        return "social_new";
+    }
+
+    @PostMapping("/{socialId}/edit")
+    public String updateSocial(SocialFormRequestDto socialFormRequestDto, Authentication authentication, @PathVariable("socialId") Long SocialId) throws IOException {
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        socialService.createSocial(socialFormRequestDto, principal.getUsername());
+        return "redirect:/social";
+    }
 }

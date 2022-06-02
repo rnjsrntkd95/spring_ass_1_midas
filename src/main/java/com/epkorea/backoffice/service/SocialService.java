@@ -1,6 +1,7 @@
 package com.epkorea.backoffice.service;
 
 import com.epkorea.backoffice.dto.SocialFormRequestDto;
+import com.epkorea.backoffice.dto.SocialFormResponseDto;
 import com.epkorea.backoffice.dto.SocialListPageDto;
 import com.epkorea.backoffice.dto.SocialResponseDto;
 import com.epkorea.backoffice.entity.SocialContribution;
@@ -36,16 +37,30 @@ public class SocialService {
         return SocialResponseDto.createSocialResponse(currentPage - PAGE_WEIGHT, socialListPageDto);
     }
 
+    public SocialFormResponseDto findSocial(Long socialId) {
+        SocialContribution socialContribution = socialRepository.findById(socialId).get();
+        return SocialFormResponseDto.getSocialFrom(socialContribution);
+    }
+
     @Transactional
     public Long createSocial(SocialFormRequestDto requestDto, String userid) throws IOException {
+        Long sid = requestDto.getSid();
         String title = requestDto.getTitle();
         String content = requestDto.getContent();
         boolean isShow = requestDto.getIsShow().equals("Y");
         LocalDate showDate = LocalDate.parse(requestDto.getShowDate());
-
+        String originImagePath = null;
+        String imagePath = null;
         MultipartFile picture = requestDto.getPicture();
-        String originImagePath = picture.getOriginalFilename();
-        String imagePath = storePicture(picture);
+
+        if (sid  != null && picture == null ) {
+            SocialContribution socialContribution = socialRepository.findById(sid).get();
+            originImagePath = socialContribution.getOriginImagePath();
+            imagePath = socialContribution.getImagePath();
+        } else {
+            originImagePath = picture.getOriginalFilename();
+            imagePath = storePicture(picture);
+        }
 
         User writer = userRepository.findByUserid(userid)
                 .orElseThrow(() -> {
@@ -53,7 +68,7 @@ public class SocialService {
                 });
 
         SocialContribution socialContribution = SocialContribution.createSocialContribution(
-                title, content, originImagePath, imagePath, isShow, showDate, writer);
+                sid, title, content, originImagePath, imagePath, isShow, showDate, writer);
 
         return socialRepository.save(socialContribution).getSid();
     }

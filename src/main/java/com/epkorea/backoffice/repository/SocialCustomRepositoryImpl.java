@@ -25,6 +25,7 @@ public class SocialCustomRepositoryImpl implements SocialCustomRepository {
         List<SocialListPageDto> content = queryFactory
                 .select(Projections.fields(
                         SocialListPageDto.class,
+                        socialContribution.sid,
                         socialContribution.title,
                         socialContribution.showDate,
                         socialContribution.isShow))
@@ -41,8 +42,6 @@ public class SocialCustomRepositoryImpl implements SocialCustomRepository {
                 .fetch().size();
 
         return new PageImpl<>(content, pageable, totalSize);
-
-
     }
 
     private BooleanExpression titleContains(String condition, String kwd) {

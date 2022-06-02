@@ -10,7 +10,10 @@
 </th:block>
 <th:block layout:fragment="js">
     <script>
-        document.getElementById('showDate').value= new Date().toISOString().slice(0, 10);
+        let date = document.getElementById('showDate')
+        if (!date.value) {
+            date.value = new Date().toISOString().slice(0, 10);
+        }
     </script>
 </th:block>
 
@@ -20,41 +23,44 @@
         <aside class="aside"
                th:replace="fragment/aside :: asideFragment(title='홍보센터', menu1='사회공헌', menu1_url='/social', menu2='뉴스룸')"></aside>
         <div class="signup-container">
-            <form action="/social/new" th:action="@{/social/new}" method="POST" enctype="multipart/form-data" class="signup-form-wrap">
+            <form action="/social/new" th:action="@{/social/new}" th:object="${social_form}" method="POST" enctype="multipart/form-data" class="signup-form-wrap">
+                <input type="hidden" name="sid" th:field="*{sid}">
                 <div class="signup-form">
                     <div class="row form-userid">
                         <label name="userid" for="title" class="form-userid-label form-label-base">제목*</label>
                         <div class="form-text-wrap">
-                            <input type="text" name="title" id="title" class="form-userid-input" required>
+                            <input type="text" name="title" id="title" class="form-userid-input" th:field="*{title}" required>
                         </div>
                     </div>
                     <div class="row form-username">
                         <label name="username" for="picture" class="form-username-label form-label-base">썸네일
                             이미지*</label>
                         <div class="form-text-wrap">
-                            <input type="file" name="picture" id="picture" class="form-username-input">
+                            <input type="file" name="picture" id="picture" class="form-username-input" th:field="*{originFile}">
+                            <a th:href="@{/download(imageFilePath=${social_form.getImageFilePath()})}" th:text="*{originFile}"></a>
                         </div>
                     </div>
                     <div class="row form-team">
                         <label name="team" for="isShow" class="form-team-label form-label-base">노출 여부</label>
                         <div class="form-text-wrap">
-                            <select name="isShow" id="isShow" class="isShow">
+                            <select name="isShow" id="isShow" class="isShow" th:field="*{isShow}">
                                 <option value="Y">Y</option>
-                                <option value="N">X</option>
+                                <option value="N">N</option>
                             </select>
                         </div>
                     </div>
                     <div class="row form-phone">
                         <label name="showDate" for="showDate" class="form-phone-label form-label-base">보도일*</label>
                         <div class="form-text-wrap">
-                            <input type="date" name="showDate" id="showDate" class="showDate">
+                            <input type="date" name="showDate" id="showDate" class="showDate" th:field="*{showDate}">
                         </div>
                     </div>
                     <div class="row form-authority-content">
-                        <input type="text" name="admin" id="admin" class="form-content-input">
+                        <input type="text" name="content" id="admin" class="form-content-input" th:field="*{content}">
                     </div>
                 </div>
                 <div class="signup-btn-box">
+
                     <input type="submit" class="signup-submit signup-btn" value="등록">
                     <a href="/social" class="signup-cancel signup-btn">취소</a>
                 </div>
