@@ -19,13 +19,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final LoginSuccessHandler loginSuccessHandler;
     private final LoginFailureHandler loginFailureHandler;
+    private final AuthorityDeniedHandler authorityDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/", "/user/all", "/user/login").permitAll()
-                .mvcMatchers("/user/log", "/user/signup").hasRole(RoleEnum.ADMIN.name())
-                .mvcMatchers("/social").hasRole(RoleEnum.SOCIAL.name())
+                .mvcMatchers("/user/logs", "/user/signup").hasRole(RoleEnum.ADMIN.name())
+                .mvcMatchers("/social/**").hasRole(RoleEnum.SOCIAL.name())
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/user/login")
@@ -35,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/user/all");
         http.httpBasic();
         http.csrf().disable();
+        http.exceptionHandling().accessDeniedHandler(authorityDeniedHandler);
     }
 
     @Override

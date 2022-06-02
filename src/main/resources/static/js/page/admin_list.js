@@ -8,4 +8,9 @@
     const searchBar = document.querySelector(".admin-search");
     const searchSubmit = searchBar.querySelector(".admin-search-submit");
     searchSubmit.addEventListener("click", searchHandler);
+
+    const URLSearch = new URLSearchParams(location.search);
+    if (URLSearch.get("error")) {
+        alert("권한이 없는 유저입니다.")
+    }
 })()
