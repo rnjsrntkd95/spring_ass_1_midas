@@ -36,6 +36,7 @@ public class SocialService {
         return SocialResponseDto.createSocialResponse(currentPage - PAGE_WEIGHT, socialListPageDto);
     }
 
+    @Transactional
     public Long createSocial(SocialFormRequestDto requestDto, String userid) throws IOException {
         String title = requestDto.getTitle();
         String content = requestDto.getContent();

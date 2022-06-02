@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutSuccessUrl("/user/all");
         http.httpBasic();
+        http.csrf().disable();
     }
 
     @Override
