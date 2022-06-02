@@ -25,6 +25,7 @@ public class SocialCustomRepositoryImpl implements SocialCustomRepository {
         List<SocialListPageDto> content = queryFactory
                 .select(Projections.fields(
                         SocialListPageDto.class,
+                        socialContribution.sid,
                         socialContribution.title,
                         socialContribution.showDate,
                         socialContribution.isShow))

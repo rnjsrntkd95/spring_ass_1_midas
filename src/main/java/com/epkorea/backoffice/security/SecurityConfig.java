@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/", "/user/all", "/user/login").permitAll()
+                .mvcMatchers("/", "/social","/user/all", "/user/login").permitAll()
                 .mvcMatchers("/user/log", "/user/signup").hasRole("ADMIN")
                 .mvcMatchers("/social").hasRole("SOCIAL")
                 .anyRequest().authenticated();

@@ -76,3 +76,16 @@
     align-items: center;
     padding: 1px 6px;
 }
+.social-row-a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    flex-grow: 1;
+}
+.social-row-a > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

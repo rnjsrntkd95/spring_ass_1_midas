@@ -40,11 +40,14 @@
                     <div class="social-row-show">노출여부</div>
                 </div>
                 <div class="social-row" th:each="social, i : ${social_list}">
-                    <div class="social-row-number" th:text="${total_elements - 10 * current_page - i.count + 1}"></div>
-                    <div class="social-row-title" th:text="${social.getTitle()}"></div>
-                    <div class="social-row-date"
-                         th:text="${#temporals.format(social.getShowDate(), 'yyyy.MM.dd')}"></div>
-                    <div class="social-row-show" th:text="${social.isShow() ? 'Y' : 'N'}"></div>
+                    <a class="social-row-a"th:href="@{/social/{sid}/edit(sid=${social.getSid()})}" >
+                        <div class="social-row-number"
+                             th:text="${total_elements - 10 * current_page - i.count + 1}"></div>
+                        <div class="social-row-title" th:text="${social.getTitle()}"></div>
+                        <div class="social-row-date"
+                             th:text="${#temporals.format(social.getShowDate(), 'yyyy.MM.dd')}"></div>
+                        <div class="social-row-show" th:text="${social.isShow() ? 'Y' : 'N'}"></div>
+                    </a>
                 </div>
             </div>
             <div class="social-signup">
