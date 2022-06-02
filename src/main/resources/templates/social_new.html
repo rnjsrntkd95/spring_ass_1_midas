@@ -7,7 +7,6 @@
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/aside.css}">
     <link rel="stylesheet" th:href="@{/css/page/social_new.css}">
-
 </th:block>
 <th:block layout:fragment="js">
     <script>
@@ -64,31 +63,3 @@
     </div>
 </div>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:th="http://www.thymeleaf.org"-->
-<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
-<!--      layout:decorate="~{fragment/layout}">-->
-
-<!--<th:block layout:fragment="css">-->
-<!--    &lt;!&ndash;    <link rel="stylesheet" th:href="@{/css/page/home.css}" >&ndash;&gt;-->
-<!--</th:block>-->
-<!--<th:block layout:fragment="js">-->
-<!--    &lt;!&ndash;    <script th:src="@{/js/page/home.js}"></script>&ndash;&gt;-->
-<!--</th:block>-->
-
-<!--<div layout:fragment="content">-->
-<!--    <form action="/social/new" th:action="@{/social/new}" th:object="${social_form}" method="POST" enctype="multipart/form-data">-->
-<!--        <input type="text" name="title" th:field="*{title}">-->
-<!--        <input type="text" name="content" th:field="*{content}">-->
-<!--        <select name="isShow" id="isShow">-->
-<!--            <option value="Y">Y</option>-->
-<!--            <option value="N">X</option>-->
-<!--        </select>-->
-<!--        <input type="date" name="showDate" th:field="*{showDate}">-->
-<!--        <input type="file" name="picture" th:field="*{picture}">-->
-<!--        <input type="submit" value="제출">-->
-<!--    </form>-->
-<!--</div>-->
-<!--</html>-->
