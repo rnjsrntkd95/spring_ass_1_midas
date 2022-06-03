@@ -1,0 +1,22 @@
+server:
+  address: localhost
+  port: 8080
+
+spring:
+  config:
+    import: application-db.yml
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/SJP
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+    show-sql: true
+
+
