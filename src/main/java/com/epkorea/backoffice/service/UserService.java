@@ -7,7 +7,7 @@ import com.epkorea.backoffice.dto.UserPageInfoRs;
 import com.epkorea.backoffice.entity.Role;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,17 +17,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserService implements UserDetailsService {
+
     private static final int PAGE_LENGTH = 10;
     private static final int PAGE_WEIGHT = 1;  // URL currentPage 파라매터 직관성을 위한 가중치
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -26,6 +26,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class SocialService {
+
     private final SocialRepository socialRepository;
     private final UserRepository userRepository;
 

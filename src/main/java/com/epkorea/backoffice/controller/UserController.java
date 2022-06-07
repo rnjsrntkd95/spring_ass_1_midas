@@ -3,7 +3,7 @@ package com.epkorea.backoffice.controller;
 import com.epkorea.backoffice.dto.*;
 import com.epkorea.backoffice.service.UserLogService;
 import com.epkorea.backoffice.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = "/user")
 public class UserController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserLogService userLogService;
+
+    private final UserService userService;
+    private final UserLogService userLogService;
 
     @GetMapping("/all")
     public ModelAndView getAllUsers(@ModelAttribute UserPageInfoRq userPageInfoRq) {

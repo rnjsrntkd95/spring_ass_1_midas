@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/", "/user/all", "/user/login").permitAll()
+                .mvcMatchers("/", "/swagger-ui/", "/user/all", "/user/login").permitAll()
                 .mvcMatchers("/user/logs", "/user/signup").hasRole(RoleEnum.ADMIN.name())
                 .mvcMatchers("/social/**").hasRole(RoleEnum.SOCIAL.name())
                 .anyRequest().authenticated();
