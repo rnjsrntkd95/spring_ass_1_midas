@@ -1,7 +1,7 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.SocialFormRequestDto;
 import com.epkorea.backoffice.dto.SocialFormResponseDto;
+import com.epkorea.backoffice.dto.SocialFormRq;
 import com.epkorea.backoffice.dto.SocialPageRs;
 import com.epkorea.backoffice.service.SocialService;
 import lombok.RequiredArgsConstructor;
@@ -44,8 +44,8 @@ public class SocialController {
     }
 
     @PostMapping("/new")
-    public String createNewSocial(SocialFormRequestDto socialFormRequestDto, @AuthenticationPrincipal User principal) throws IOException {
-        socialService.createSocial(socialFormRequestDto, principal.getUsername());
+    public String createNewSocial(SocialFormRq socialFormRq, @AuthenticationPrincipal User principal) throws IOException {
+        socialService.createSocial(socialFormRq, principal.getUsername());
 
         return "redirect:/social";
     }
@@ -56,11 +56,5 @@ public class SocialController {
         model.addAttribute("social_form", socialForm);
 
         return "social_new";
-    }
-
-    @PostMapping("/{socialId}/edit")
-    public String updateSocial(SocialFormRequestDto socialFormRequestDto, @AuthenticationPrincipal User principal, @PathVariable("socialId") Long SocialId) throws IOException {
-        socialService.createSocial(socialFormRequestDto, principal.getUsername());
-        return "redirect:/social";
     }
 }
