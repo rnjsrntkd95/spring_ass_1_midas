@@ -1,4 +1,4 @@
-package com.epkorea.backoffice.repository;
+package com.epkorea.backoffice.repository.custom;
 
 import com.epkorea.backoffice.dto.SocialListPageDto;
 import com.querydsl.core.types.Projections;

@@ -1,12 +1,12 @@
 package com.epkorea.backoffice.service;
 
 import com.epkorea.backoffice.dto.UserJoinRq;
+import com.epkorea.backoffice.dto.UserPageInfoDto;
 import com.epkorea.backoffice.dto.UserPageInfoRq;
 import com.epkorea.backoffice.dto.UserPageInfoRs;
 import com.epkorea.backoffice.entity.Role;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
-import com.epkorea.backoffice.repository.projection.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,22 +47,8 @@ public class UserService implements UserDetailsService {
         String condition = userPageInfoRq.getCondition();
         String kwd = userPageInfoRq.getKwd();
         Integer currentPage = userPageInfoRq.getCurrentPage();
-        Page<UserMapper> page = null;
-        if (condition != null && kwd != null && !condition.isBlank() && !kwd.isBlank()) {
-            switch (condition) {
-                case "all":
-                    page = userRepository.findAllByNameContainingOrTeamContainingOrderByCreateDateDesc(kwd, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
-                    break;
-                case "name":
-                    page = userRepository.findAllByNameContainingOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
-                    break;
-                case "team":
-                    page = userRepository.findAllByTeamContainingOrderByCreateDateDesc(kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
-                    break;
-            }
-        } else {
-            page = userRepository.findAllByOrderByCreateDateDesc(PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
-        }
+
+        Page<UserPageInfoDto> page = userRepository.findAllBySearchCondition(condition, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
 
         return UserPageInfoRs.toDto(page, currentPage - PAGE_WEIGHT);
     }

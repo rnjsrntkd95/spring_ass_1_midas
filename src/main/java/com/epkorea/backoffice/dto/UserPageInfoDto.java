@@ -1,6 +1,5 @@
 package com.epkorea.backoffice.dto;
 
-import com.epkorea.backoffice.repository.projection.UserMapper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +16,7 @@ public class UserPageInfoDto {
     private String team;
     private LocalDateTime createDate;
 
-    public static UserPageInfoDto toDto(UserMapper user) {
+    public static UserPageInfoDto toDto(UserPageInfoDto user) {
         UserPageInfoDto userInfoDto = new UserPageInfoDto();
         userInfoDto.setUserid(user.getUserid());
         userInfoDto.setName(user.getName());
@@ -27,7 +26,7 @@ public class UserPageInfoDto {
         return userInfoDto;
     }
 
-    public static List<UserPageInfoDto> toDtoList(List<UserMapper> users) {
+    public static List<UserPageInfoDto> toDtoList(List<UserPageInfoDto> users) {
         return users.stream().map(UserPageInfoDto::toDto).collect(Collectors.toList());
     }
 }
