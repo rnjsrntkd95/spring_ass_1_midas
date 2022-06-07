@@ -27,10 +27,13 @@ public class Role {
     @JoinColumn(name = "uid")
     private User user;
 
-    public static List<Role> createRoles(User user, List<RoleEnum> roles) {
-        return roles.stream().map((role) -> Role.builder()
+    public static List<Role> createRoles(User user, List<RoleEnum> roleEnums) {
+        List<Role> roles = roleEnums.stream().map((role) -> Role.builder()
                 .role(role)
                 .user(user)
                 .build()).collect(Collectors.toList());
+        user.addRoles(roles);
+
+        return roles;
     }
 }

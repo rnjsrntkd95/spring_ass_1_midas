@@ -1,6 +1,6 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.UserJoinDto;
+import com.epkorea.backoffice.dto.UserJoinRq;
 import com.epkorea.backoffice.dto.UserLogPageDto;
 import com.epkorea.backoffice.dto.UserLogSearchDto;
 import com.epkorea.backoffice.dto.UsersPageInfoDto;
@@ -59,8 +59,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signUpProcess(@ModelAttribute UserJoinDto.Request userJoinDto) {
-        userService.joinUser(userJoinDto);
+    public String signUpProcess(@ModelAttribute UserJoinRq userJoinRq) {
+        userService.joinUser(userJoinRq);
         return "redirect:/user/all";
     }
 

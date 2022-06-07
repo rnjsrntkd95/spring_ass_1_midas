@@ -1,6 +1,6 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.dto.UserJoinDto;
+import com.epkorea.backoffice.dto.UserJoinRq;
 import com.epkorea.backoffice.dto.UsersPageInfoDto;
 import com.epkorea.backoffice.entity.Role;
 import com.epkorea.backoffice.entity.User;
@@ -16,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional(readOnly = true)
 public class UserService implements UserDetailsService {
@@ -28,6 +26,7 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -73,23 +72,12 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Long joinUser(UserJoinDto.Request userJoinDto) {
-        validateDuplicateUser(userJoinDto.getUserid());
+    public Long joinUser(UserJoinRq userJoinRq) {
+        validateDuplicateUser(userJoinRq.getUserid());
+        User user = userJoinRq.toEntity(passwordEncoder);
+        Role.createRoles(user, userJoinRq.getRoles());
 
-        User user = User.builder()
-                .userid(userJoinDto.getUserid())
-                .name(userJoinDto.getName())
-                .password(userJoinDto.getPwd())
-                .team(userJoinDto.getTeam())
-                .phone(userJoinDto.getPhone())
-                .build();
-        user.encodePassword(passwordEncoder);
-
-        List<Role> roles = Role.createRoles(user, userJoinDto.getRoles());
-        user.addRoles(roles);
-        user = userRepository.save(user);
-
-        return user.getUid();
+        return userRepository.save(user).getUid();
     }
 
     public void validateDuplicateUser(String userid) {
