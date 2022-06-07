@@ -38,7 +38,7 @@
                 </div>
                 <div class="admin-log-row" th:each="adminLog, i : ${admin_logs}">
                     <div class="admin-log-row-number" th:text="${total_elements - 10 * current_page - i.count + 1}"></div>
-                    <div class="admin-log-row-date" th:text="${#temporals.format(adminLog.getLoginDate(), 'yyyy.MM.dd hh:mm:ss')}"></div>
+                    <div class="admin-log-row-date" th:text="${#temporals.format(adminLog.getLoginDate(), 'yyyy.MM.dd HH:mm:ss')}"></div>
                     <div class="admin-log-row-userid" th:text="${adminLog.getUserid()}"></div>
                     <div class="admin-log-row-ip" th:text="${adminLog.getIp()}"></div>
                     <div class="admin-log-row-session"

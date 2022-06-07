@@ -4,19 +4,19 @@ import com.epkorea.backoffice.dto.UserLogPageDto;
 import com.epkorea.backoffice.dto.UserLogSearchDto;
 import com.epkorea.backoffice.entity.UserLog;
 import com.epkorea.backoffice.repository.UserLoggingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserLogService {
     private static final int PAGE_LENGTH = 10;
     private static final int PAGE_WEIGHT = 1;  // URL currentPage 파라매터 직관성을 위한 가중치
-    @Autowired
-    UserLoggingRepository userLoggingRepository;
+    private final UserLoggingRepository userLoggingRepository;
 
     public UserLogPageDto findUserLogs(UserLogSearchDto.Request userLogSearchDto) {
         String kwd = userLogSearchDto.getKwd();
