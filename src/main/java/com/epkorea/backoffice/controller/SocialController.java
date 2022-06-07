@@ -2,7 +2,7 @@ package com.epkorea.backoffice.controller;
 
 import com.epkorea.backoffice.dto.SocialFormRequestDto;
 import com.epkorea.backoffice.dto.SocialFormResponseDto;
-import com.epkorea.backoffice.dto.SocialResponseDto;
+import com.epkorea.backoffice.dto.SocialPageRs;
 import com.epkorea.backoffice.service.SocialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,13 +27,13 @@ public class SocialController {
             @RequestParam(value = "condition", defaultValue = "") String condition,
             @RequestParam(value = "kwd", defaultValue = "") String kwd,
             ModelAndView modelAndView) {
-        SocialResponseDto socialResponseDto = socialService.getSocialList(currentPage, condition, kwd);
+        SocialPageRs socialPageRs = socialService.getSocialList(currentPage, condition, kwd);
 
         modelAndView.setViewName("social_list");
-        modelAndView.addObject("social_list", socialResponseDto.getSocialList());
-        modelAndView.addObject("current_page", socialResponseDto.getCurrentPage());
-        modelAndView.addObject("total_pages", socialResponseDto.getTotalPages());
-        modelAndView.addObject("total_elements", socialResponseDto.getTotalElements());
+        modelAndView.addObject("social_list", socialPageRs.getSocialList());
+        modelAndView.addObject("current_page", socialPageRs.getCurrentPage());
+        modelAndView.addObject("total_pages", socialPageRs.getTotalPages());
+        modelAndView.addObject("total_elements", socialPageRs.getTotalElements());
 
         return modelAndView;
     }
