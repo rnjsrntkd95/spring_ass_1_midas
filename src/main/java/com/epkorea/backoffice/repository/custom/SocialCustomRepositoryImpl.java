@@ -1,6 +1,6 @@
 package com.epkorea.backoffice.repository.custom;
 
-import com.epkorea.backoffice.dto.SocialListPageDto;
+import com.epkorea.backoffice.dto.SocialPageDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -21,10 +21,10 @@ public class SocialCustomRepositoryImpl implements SocialCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<SocialListPageDto> findAllBySearchCondition(String condition, String kwd, Pageable pageable) {
-        List<SocialListPageDto> content = queryFactory
+    public Page<SocialPageDto> findAllBySearchCondition(String condition, String kwd, Pageable pageable) {
+        List<SocialPageDto> content = queryFactory
                 .select(Projections.fields(
-                        SocialListPageDto.class,
+                        SocialPageDto.class,
                         socialContribution.sid,
                         socialContribution.title,
                         socialContribution.showDate,

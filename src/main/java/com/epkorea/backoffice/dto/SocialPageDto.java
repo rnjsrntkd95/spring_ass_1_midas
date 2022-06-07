@@ -1,17 +1,13 @@
 package com.epkorea.backoffice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class SocialListPageDto {
+@Setter
+public class SocialPageDto {
     private Long sid;
     private String title;
     private LocalDate showDate;

@@ -2,7 +2,7 @@ package com.epkorea.backoffice.service;
 
 import com.epkorea.backoffice.dto.SocialFormRq;
 import com.epkorea.backoffice.dto.SocialFormRs;
-import com.epkorea.backoffice.dto.SocialListPageDto;
+import com.epkorea.backoffice.dto.SocialPageDto;
 import com.epkorea.backoffice.dto.SocialPageRs;
 import com.epkorea.backoffice.entity.SocialContribution;
 import com.epkorea.backoffice.entity.User;
@@ -32,7 +32,7 @@ public class SocialService {
     public SocialPageRs getSocialList(int currentPage, String condition, String kwd) {
         int PAGE_WEIGHT = 1;
         int PAGE_LENGTH = 10;
-        Page<SocialListPageDto> socialListPageDto = socialRepository.findAllBySearchCondition(condition, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+        Page<SocialPageDto> socialListPageDto = socialRepository.findAllBySearchCondition(condition, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
 
         return SocialPageRs.toDto(socialListPageDto, currentPage - PAGE_WEIGHT);
     }

@@ -10,12 +10,12 @@ import java.util.List;
 @Setter
 public class SocialPageRs {
 
-    private List<SocialListPageDto> socialList;
+    private List<SocialPageDto> socialList;
     private int currentPage;
     private int totalPages;
     private Long totalElements;
 
-    public static SocialPageRs toDto(Page<SocialListPageDto> socialListPageDto, int currentPage) {
+    public static SocialPageRs toDto(Page<SocialPageDto> socialListPageDto, int currentPage) {
         SocialPageRs rs = new SocialPageRs();
         rs.setSocialList(socialListPageDto.getContent());
         rs.setTotalPages(socialListPageDto.getTotalPages());
