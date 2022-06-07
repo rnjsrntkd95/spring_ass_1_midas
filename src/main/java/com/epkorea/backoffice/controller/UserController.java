@@ -62,15 +62,15 @@ public class UserController {
     }
 
     @GetMapping("/logs")
-    public ModelAndView getConnectionLogs(@ModelAttribute UserLogSearchDto.Request userLogSearchDto) {
-        UserLogPageDto userLogPageDto = userLogService.findUserLogs(userLogSearchDto);
+    public ModelAndView getConnectionLogs(@ModelAttribute UserLogPageRq userLogPageRq) {
+        UserLogPageRs userLogPageRs = userLogService.findUserLogs(userLogPageRq);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin_log_list");
-        modelAndView.addObject("admin_logs", userLogPageDto.getUserLogs());
-        modelAndView.addObject("total_pages", userLogPageDto.getTotalPages());
-        modelAndView.addObject("current_page", userLogPageDto.getCurrentPage());
-        modelAndView.addObject("total_elements", userLogPageDto.getTotalElements());
+        modelAndView.addObject("admin_logs", userLogPageRs.getUserLogs());
+        modelAndView.addObject("total_pages", userLogPageRs.getTotalPages());
+        modelAndView.addObject("current_page", userLogPageRs.getCurrentPage());
+        modelAndView.addObject("total_elements", userLogPageRs.getTotalElements());
 
         return modelAndView;
     }

@@ -30,5 +30,4 @@ public class UserPageInfoDto {
     public static List<UserPageInfoDto> toDtoList(List<UserMapper> users) {
         return users.stream().map(UserPageInfoDto::toDto).collect(Collectors.toList());
     }
-
 }
