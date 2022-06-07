@@ -1,7 +1,8 @@
 package com.epkorea.backoffice.service;
 
 import com.epkorea.backoffice.dto.UserJoinRq;
-import com.epkorea.backoffice.dto.UsersPageInfoDto;
+import com.epkorea.backoffice.dto.UserPageInfoRq;
+import com.epkorea.backoffice.dto.UserPageInfoRs;
 import com.epkorea.backoffice.entity.Role;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.UserRepository;
@@ -42,10 +43,10 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    public UsersPageInfoDto.Response findAllUserInfo(UsersPageInfoDto.Request userDto) {
-        String condition = userDto.getCondition();
-        String kwd = userDto.getKwd();
-        Integer currentPage = userDto.getCurrentPage();
+    public UserPageInfoRs findAllUserInfo(UserPageInfoRq userPageInfoRq) {
+        String condition = userPageInfoRq.getCondition();
+        String kwd = userPageInfoRq.getKwd();
+        Integer currentPage = userPageInfoRq.getCurrentPage();
         Page<UserMapper> page = null;
         if (condition != null && kwd != null && !condition.isBlank() && !kwd.isBlank()) {
             switch (condition) {
@@ -63,12 +64,7 @@ public class UserService implements UserDetailsService {
             page = userRepository.findAllByOrderByCreateDateDesc(PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
         }
 
-        return UsersPageInfoDto.Response.builder()
-                .userList(page.getContent())
-                .totalPages(page.getTotalPages())
-                .currentPage(userDto.getCurrentPage() - PAGE_WEIGHT)
-                .totalElements(page.getTotalElements())
-                .build();
+        return UserPageInfoRs.toDto(page, currentPage - PAGE_WEIGHT);
     }
 
     @Transactional
