@@ -36,8 +36,8 @@
                         <label name="username" for="picture" class="form-username-label form-label-base">썸네일
                             이미지*</label>
                         <div class="form-text-wrap">
-                            <input type="file" name="picture" id="picture" class="form-username-input" th:field="*{originFile}">
-                            <a th:href="@{/download(imageFilePath=${social_form.getImageFilePath()})}" th:text="*{originFile}"></a>
+                            <input type="file" name="picture" id="picture" class="form-username-input">
+                            <a th:if="*{originFile != null and imageFilePath != null}" th:href="@{/download(imageFilePath=${social_form.getImageFilePath()})}" th:text="*{originFile}"></a>
                         </div>
                     </div>
                     <div class="row form-team">

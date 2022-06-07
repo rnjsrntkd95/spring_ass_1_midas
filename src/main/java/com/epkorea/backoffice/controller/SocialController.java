@@ -1,7 +1,7 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.SocialFormResponseDto;
 import com.epkorea.backoffice.dto.SocialFormRq;
+import com.epkorea.backoffice.dto.SocialFormRs;
 import com.epkorea.backoffice.dto.SocialPageRs;
 import com.epkorea.backoffice.service.SocialService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,8 @@ public class SocialController {
     }
 
     @GetMapping("/new")
-    public String createSocialForm() {
+    public String createSocialForm(Model model) {
+        model.addAttribute("social_form", new SocialFormRq());
         return "social_new";
     }
 
@@ -52,8 +53,8 @@ public class SocialController {
 
     @GetMapping("/{socialId}/edit")
     public String updateSocial(@PathVariable("socialId") Long SocialId, Model model) {
-        SocialFormResponseDto socialForm = socialService.findSocial(SocialId);
-        model.addAttribute("social_form", socialForm);
+        SocialFormRs socialFormRs = socialService.findSocial(SocialId);
+        model.addAttribute("social_form", socialFormRs);
 
         return "social_new";
     }

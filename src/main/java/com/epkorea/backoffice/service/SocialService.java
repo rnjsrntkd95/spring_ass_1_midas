@@ -1,7 +1,7 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.dto.SocialFormResponseDto;
 import com.epkorea.backoffice.dto.SocialFormRq;
+import com.epkorea.backoffice.dto.SocialFormRs;
 import com.epkorea.backoffice.dto.SocialListPageDto;
 import com.epkorea.backoffice.dto.SocialPageRs;
 import com.epkorea.backoffice.entity.SocialContribution;
@@ -37,9 +37,9 @@ public class SocialService {
         return SocialPageRs.toDto(socialListPageDto, currentPage - PAGE_WEIGHT);
     }
 
-    public SocialFormResponseDto findSocial(Long socialId) {
+    public SocialFormRs findSocial(Long socialId) {
         SocialContribution socialContribution = socialRepository.findById(socialId).get();
-        return SocialFormResponseDto.getSocialFrom(socialContribution);
+        return SocialFormRs.toDto(socialContribution);
     }
 
     @Transactional
