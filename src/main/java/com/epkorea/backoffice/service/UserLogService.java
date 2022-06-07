@@ -22,14 +22,7 @@ public class UserLogService {
 
     public UserLogPageRs findUserLogs(UserLogPageRq userLogPageRq) {
         String kwd = userLogPageRq.getKwd();
-        Page<UserLog> userLogPage = null;
-        if (kwd == null || kwd.isBlank()) {
-            userLogPage =
-                    userLoggingRepository.findAllByOrderByLoginDateDesc(PageRequest.of(userLogPageRq.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
-        } else {
-            userLogPage =
-                    userLoggingRepository.findAllByUseridContainingOrderByLoginDateDesc(kwd, PageRequest.of(userLogPageRq.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
-        }
+        Page<UserLog> userLogPage = userLoggingRepository.findAllByUserId(kwd, PageRequest.of(userLogPageRq.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
 
         return UserLogPageRs.toDto(userLogPage, userLogPageRq.getCurrentPage() - PAGE_WEIGHT);
     }
