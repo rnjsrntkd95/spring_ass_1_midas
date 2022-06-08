@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @DynamicInsert
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
@@ -44,16 +44,11 @@ public class User {
     @Builder.Default
     List<Role> roles = new ArrayList<>();
 
-
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
+    public void addRoles(List<Role> roles) {
+        this.roles.addAll(roles);
     }
 
     public String[] getRoleNames() {
         return roles.stream().map(role -> role.getRole().name()).toArray(String[]::new);
-    }
-
-    public void addRoles(List<Role> roles) {
-        this.roles.addAll(roles);
     }
 }

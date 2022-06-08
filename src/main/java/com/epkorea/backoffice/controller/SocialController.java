@@ -1,12 +1,12 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.SocialFormRequestDto;
-import com.epkorea.backoffice.dto.SocialFormResponseDto;
-import com.epkorea.backoffice.dto.SocialResponseDto;
+import com.epkorea.backoffice.dto.SocialFormRq;
+import com.epkorea.backoffice.dto.SocialFormRs;
+import com.epkorea.backoffice.dto.SocialPageRs;
 import com.epkorea.backoffice.service.SocialService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,42 +27,35 @@ public class SocialController {
             @RequestParam(value = "condition", defaultValue = "") String condition,
             @RequestParam(value = "kwd", defaultValue = "") String kwd,
             ModelAndView modelAndView) {
-        SocialResponseDto socialResponseDto = socialService.getSocialList(currentPage, condition, kwd);
+        SocialPageRs socialPageRs = socialService.getSocialList(currentPage, condition, kwd);
 
         modelAndView.setViewName("social_list");
-        modelAndView.addObject("social_list", socialResponseDto.getSocialList());
-        modelAndView.addObject("current_page", socialResponseDto.getCurrentPage());
-        modelAndView.addObject("total_pages", socialResponseDto.getTotalPages());
-        modelAndView.addObject("total_elements", socialResponseDto.getTotalElements());
+        modelAndView.addObject("social_list", socialPageRs.getSocialList());
+        modelAndView.addObject("current_page", socialPageRs.getCurrentPage());
+        modelAndView.addObject("total_pages", socialPageRs.getTotalPages());
+        modelAndView.addObject("total_elements", socialPageRs.getTotalElements());
 
         return modelAndView;
     }
 
     @GetMapping("/new")
-    public String createSocialForm() {
+    public String createSocialForm(Model model) {
+        model.addAttribute("social_form", new SocialFormRq());
         return "social_new";
     }
 
     @PostMapping("/new")
-    public String createNewSocial(SocialFormRequestDto socialFormRequestDto, Authentication authentication) throws IOException {
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        socialService.createSocial(socialFormRequestDto, principal.getUsername());
+    public String createNewSocial(SocialFormRq socialFormRq, @AuthenticationPrincipal User principal) throws IOException {
+        socialService.createSocial(socialFormRq, principal.getUsername());
 
         return "redirect:/social";
     }
 
     @GetMapping("/{socialId}/edit")
     public String updateSocial(@PathVariable("socialId") Long SocialId, Model model) {
-        SocialFormResponseDto socialForm = socialService.findSocial(SocialId);
-        model.addAttribute("social_form", socialForm);
+        SocialFormRs socialFormRs = socialService.findSocial(SocialId);
+        model.addAttribute("social_form", socialFormRs);
 
         return "social_new";
-    }
-
-    @PostMapping("/{socialId}/edit")
-    public String updateSocial(SocialFormRequestDto socialFormRequestDto, Authentication authentication, @PathVariable("socialId") Long SocialId) throws IOException {
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        socialService.createSocial(socialFormRequestDto, principal.getUsername());
-        return "redirect:/social";
     }
 }

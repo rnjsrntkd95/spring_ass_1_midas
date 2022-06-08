@@ -1,9 +1,9 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.dto.SocialFormRequestDto;
-import com.epkorea.backoffice.dto.SocialFormResponseDto;
-import com.epkorea.backoffice.dto.SocialListPageDto;
-import com.epkorea.backoffice.dto.SocialResponseDto;
+import com.epkorea.backoffice.dto.SocialFormRq;
+import com.epkorea.backoffice.dto.SocialFormRs;
+import com.epkorea.backoffice.dto.SocialPageDto;
+import com.epkorea.backoffice.dto.SocialPageRs;
 import com.epkorea.backoffice.entity.SocialContribution;
 import com.epkorea.backoffice.entity.User;
 import com.epkorea.backoffice.repository.SocialRepository;
@@ -30,29 +30,29 @@ public class SocialService {
     private final SocialRepository socialRepository;
     private final UserRepository userRepository;
 
-    public SocialResponseDto getSocialList(int currentPage, String condition, String kwd) {
+    public SocialPageRs getSocialList(int currentPage, String condition, String kwd) {
         int PAGE_WEIGHT = 1;
         int PAGE_LENGTH = 10;
-        Page<SocialListPageDto> socialListPageDto = socialRepository.findAllBySearchCondition(condition, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
+        Page<SocialPageDto> socialListPageDto = socialRepository.findAllBySearchCondition(condition, kwd, PageRequest.of(currentPage - PAGE_WEIGHT, PAGE_LENGTH));
 
-        return SocialResponseDto.createSocialResponse(currentPage - PAGE_WEIGHT, socialListPageDto);
+        return SocialPageRs.toDto(socialListPageDto, currentPage - PAGE_WEIGHT);
     }
 
-    public SocialFormResponseDto findSocial(Long socialId) {
+    public SocialFormRs findSocial(Long socialId) {
         SocialContribution socialContribution = socialRepository.findById(socialId).get();
-        return SocialFormResponseDto.getSocialFrom(socialContribution);
+        return SocialFormRs.toDto(socialContribution);
     }
 
     @Transactional
-    public Long createSocial(SocialFormRequestDto requestDto, String userid) throws IOException {
-        Long sid = requestDto.getSid();
-        String title = requestDto.getTitle();
-        String content = requestDto.getContent();
-        boolean isShow = requestDto.getIsShow().equals("Y");
-        LocalDate showDate = LocalDate.parse(requestDto.getShowDate());
+    public Long createSocial(SocialFormRq socialFormRq, String userid) throws IOException {
+        Long sid = socialFormRq.getSid();
+        String title = socialFormRq.getTitle();
+        String content = socialFormRq.getContent();
+        boolean isShow = socialFormRq.getIsShow().equals("Y");
+        LocalDate showDate = LocalDate.parse(socialFormRq.getShowDate());
         String originImagePath = null;
         String imagePath = null;
-        MultipartFile picture = requestDto.getPicture();
+        MultipartFile picture = socialFormRq.getPicture();
 
         if (sid  != null && picture == null ) {
             SocialContribution socialContribution = socialRepository.findById(sid).get();

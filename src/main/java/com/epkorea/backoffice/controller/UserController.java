@@ -1,9 +1,6 @@
 package com.epkorea.backoffice.controller;
 
-import com.epkorea.backoffice.dto.UserJoinDto;
-import com.epkorea.backoffice.dto.UserLogPageDto;
-import com.epkorea.backoffice.dto.UserLogSearchDto;
-import com.epkorea.backoffice.dto.UsersPageInfoDto;
+import com.epkorea.backoffice.dto.*;
 import com.epkorea.backoffice.service.UserLogService;
 import com.epkorea.backoffice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,15 +23,15 @@ public class UserController {
     private final UserLogService userLogService;
 
     @GetMapping("/all")
-    public ModelAndView getAllUsers(@ModelAttribute UsersPageInfoDto.Request userDto) {
-        UsersPageInfoDto.Response usersPageInfoDto = userService.findAllUserInfo(userDto);
+    public ModelAndView getAllUsers(@ModelAttribute UserPageInfoRq userPageInfoRq) {
+        UserPageInfoRs userPageInfoRs = userService.findAllUserInfo(userPageInfoRq);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin_list");
-        modelAndView.addObject("admin_list", usersPageInfoDto.getUserList());
-        modelAndView.addObject("total_pages", usersPageInfoDto.getTotalPages());
-        modelAndView.addObject("current_page", usersPageInfoDto.getCurrentPage());
-        modelAndView.addObject("total_elements", usersPageInfoDto.getTotalElements());
+        modelAndView.addObject("admin_list", userPageInfoRs.getUserList());
+        modelAndView.addObject("total_pages", userPageInfoRs.getTotalPages());
+        modelAndView.addObject("current_page", userPageInfoRs.getCurrentPage());
+        modelAndView.addObject("total_elements", userPageInfoRs.getTotalElements());
         return modelAndView;
     }
 
@@ -59,21 +56,21 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signUpProcess(@ModelAttribute UserJoinDto.Request userJoinDto) {
-        userService.joinUser(userJoinDto);
+    public String signUpProcess(@ModelAttribute UserJoinRq userJoinRq) {
+        userService.joinUser(userJoinRq);
         return "redirect:/user/all";
     }
 
     @GetMapping("/logs")
-    public ModelAndView getConnectionLogs(@ModelAttribute UserLogSearchDto.Request userLogSearchDto) {
-        UserLogPageDto userLogPageDto = userLogService.findUserLogs(userLogSearchDto);
+    public ModelAndView getConnectionLogs(@ModelAttribute UserLogPageRq userLogPageRq) {
+        UserLogPageRs userLogPageRs = userLogService.findUserLogs(userLogPageRq);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin_log_list");
-        modelAndView.addObject("admin_logs", userLogPageDto.getUserLogs());
-        modelAndView.addObject("total_pages", userLogPageDto.getTotalPages());
-        modelAndView.addObject("current_page", userLogPageDto.getCurrentPage());
-        modelAndView.addObject("total_elements", userLogPageDto.getTotalElements());
+        modelAndView.addObject("admin_logs", userLogPageRs.getUserLogs());
+        modelAndView.addObject("total_pages", userLogPageRs.getTotalPages());
+        modelAndView.addObject("current_page", userLogPageRs.getCurrentPage());
+        modelAndView.addObject("total_elements", userLogPageRs.getTotalElements());
 
         return modelAndView;
     }

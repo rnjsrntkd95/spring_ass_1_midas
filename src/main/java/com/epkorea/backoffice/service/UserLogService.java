@@ -1,9 +1,9 @@
 package com.epkorea.backoffice.service;
 
-import com.epkorea.backoffice.dto.UserLogPageDto;
-import com.epkorea.backoffice.dto.UserLogSearchDto;
+import com.epkorea.backoffice.dto.UserLogPageRq;
+import com.epkorea.backoffice.dto.UserLogPageRs;
 import com.epkorea.backoffice.entity.UserLog;
-import com.epkorea.backoffice.repository.UserLoggingRepository;
+import com.epkorea.backoffice.repository.UserLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,26 +14,22 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserLogService {
+
     private static final int PAGE_LENGTH = 10;
     private static final int PAGE_WEIGHT = 1;  // URL currentPage 파라매터 직관성을 위한 가중치
-    private final UserLoggingRepository userLoggingRepository;
 
-    public UserLogPageDto findUserLogs(UserLogSearchDto.Request userLogSearchDto) {
-        String kwd = userLogSearchDto.getKwd();
-        Page<UserLogSearchDto.Response> userLogPage = null;
-        if (kwd == null || kwd.isBlank()) {
-            userLogPage =
-                    userLoggingRepository.findAllByOrderByLoginDateDesc(PageRequest.of(userLogSearchDto.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
-        } else {
-            userLogPage =
-                    userLoggingRepository.findAllByUseridContainingOrderByLoginDateDesc(kwd, PageRequest.of(userLogSearchDto.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
-        }
-        return UserLogPageDto.setUserLogPageDto(userLogSearchDto, userLogPage);
+    private final UserLogRepository userLogRepository;
+
+    public UserLogPageRs findUserLogs(UserLogPageRq userLogPageRq) {
+        String kwd = userLogPageRq.getKwd();
+        Page<UserLog> userLogPage = userLogRepository.findAllByUserId(kwd, PageRequest.of(userLogPageRq.getCurrentPage() - PAGE_WEIGHT, PAGE_LENGTH));
+
+        return UserLogPageRs.toDto(userLogPage, userLogPageRq.getCurrentPage() - PAGE_WEIGHT);
     }
 
     @Transactional
     public void loggingUserConnection(String userid, String ip, String sessionId, boolean isLogin) {
         UserLog userLog = UserLog.createUserLog(userid, ip, sessionId, isLogin);
-        userLoggingRepository.save(userLog);
+        userLogRepository.save(userLog);
     }
 }
