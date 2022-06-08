@@ -6,6 +6,7 @@ import com.epkorea.backoffice.dto.UserPageInfoRq;
 import com.epkorea.backoffice.dto.UserPageInfoRs;
 import com.epkorea.backoffice.entity.Role;
 import com.epkorea.backoffice.entity.User;
+import com.epkorea.backoffice.entity.UserAdapter;
 import com.epkorea.backoffice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,15 +33,8 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUseridWithRoles(username)
-                .orElseThrow(() -> {
-                    throw new IllegalStateException("Not Found User");
-                });
-
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUserid())
-                .password(user.getPassword())
-                .roles(user.getRoleNames())
-                .build();
+                .orElseThrow(() -> new IllegalStateException("Not Found User"));
+        return new UserAdapter(user);
     }
 
     public UserPageInfoRs findAllUserInfo(UserPageInfoRq userPageInfoRq) {

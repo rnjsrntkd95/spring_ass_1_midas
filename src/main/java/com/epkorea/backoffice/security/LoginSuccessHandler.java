@@ -1,9 +1,9 @@
 package com.epkorea.backoffice.security;
 
+import com.epkorea.backoffice.entity.UserAdapter;
 import com.epkorea.backoffice.service.UserLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        UserDetails user = (UserDetails) authentication.getPrincipal();
+        UserAdapter user = (UserAdapter) authentication.getPrincipal();
         userLogService.loggingUserConnection(
                 user.getUsername(),
                 request.getRemoteAddr(),
